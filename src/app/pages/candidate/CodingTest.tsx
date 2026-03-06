@@ -123,10 +123,10 @@ Runtime: 0.003s  |  Memory: 14.2 MB`);
   const isRed = timeLeft < 5 * 60;
 
   return (
-    <div className="flex flex-col overflow-hidden" style={{ backgroundColor: '#1D202A', height: 'calc(100vh - 3.5rem)' }}>
+    <div className="flex flex-col overflow-hidden" style={{ backgroundColor: '#1D202A', minHeight: 'calc(100vh - 3.5rem)' }}>
       {/* Top bar */}
       <div
-        className="border-b flex items-center justify-between px-5 py-2.5 flex-shrink-0"
+        className="border-b flex items-center justify-between px-3 sm:px-5 py-2.5 flex-shrink-0 gap-2"
         style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
       >
         <span className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
@@ -141,13 +141,13 @@ Runtime: 0.003s  |  Memory: 14.2 MB`);
         >
           {formatTime(timeLeft)}
         </span>
-        <span className="text-sm" style={{ color: '#7E8494' }}>Senior Frontend Engineer Assessment</span>
+        <span className="text-xs sm:text-sm hidden sm:inline" style={{ color: '#7E8494' }}>Senior Frontend Engineer Assessment</span>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col lg:flex-row flex-1 overflow-auto lg:overflow-hidden">
         {/* Left panel – Problem */}
         <div
-          className="w-80 border-r overflow-y-auto flex-shrink-0"
+          className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r overflow-y-auto flex-shrink-0"
           style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
         >
           <div className="p-5">
@@ -193,7 +193,7 @@ Runtime: 0.003s  |  Memory: 14.2 MB`);
         </div>
 
         {/* Center panel – Editor */}
-        <div className="flex-1 flex flex-col overflow-hidden" style={{ backgroundColor: '#0D1017' }}>
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0" style={{ backgroundColor: '#0D1017' }}>
           {/* Editor header */}
           <div
             className="flex items-center justify-between px-4 py-2 border-b"
@@ -283,7 +283,7 @@ Runtime: 0.003s  |  Memory: 14.2 MB`);
 
         {/* Right panel – Test cases */}
         <div
-          className="w-56 border-l flex flex-col flex-shrink-0"
+          className="w-full lg:w-56 border-t lg:border-t-0 lg:border-l flex flex-col flex-shrink-0"
           style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
         >
           <div className="px-4 py-3 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>

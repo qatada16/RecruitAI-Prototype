@@ -31,7 +31,7 @@ export default function Login() {
       <div className="w-full max-w-sm">
         {/* Card */}
         <div
-          className="rounded-lg px-8 py-10 border"
+          className="rounded-lg px-5 sm:px-8 py-8 sm:py-10 border"
           style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }}
         >
           {/* Logo */}

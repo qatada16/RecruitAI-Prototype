@@ -48,7 +48,7 @@ export default function AssessmentDeepDive() {
   const candidate = candidates.find(c => c.id === id) || candidates[0];
 
   return (
-    <div className="p-6 max-w-7xl">
+    <div className="p-4 sm:p-6 max-w-7xl">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -69,9 +69,9 @@ export default function AssessmentDeepDive() {
         </p>
       </div>
 
-      <div className="flex gap-0 rounded-lg overflow-hidden border" style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
+      <div className="flex flex-col lg:flex-row gap-0 rounded-lg overflow-hidden border" style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
         {/* Left panel – Code Editor */}
-        <div className="flex-1" style={{ backgroundColor: '#0D1017' }}>
+        <div className="flex-1 min-w-0" style={{ backgroundColor: '#0D1017' }}>
           {/* Panel header */}
           <div
             className="flex items-center justify-between px-5 py-3 border-b"
@@ -117,7 +117,7 @@ export default function AssessmentDeepDive() {
 
         {/* Right panel – Evaluation */}
         <div
-          className="w-96 flex-shrink-0 border-l"
+          className="w-full lg:w-96 flex-shrink-0 border-t lg:border-t-0 lg:border-l"
           style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)' }}
         >
           {/* Header */}

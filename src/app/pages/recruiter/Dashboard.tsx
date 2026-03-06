@@ -28,7 +28,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-6 max-w-6xl">
+    <div className="p-4 sm:p-6 max-w-6xl">
       <div className="mb-6">
         <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
           Recruitment Overview
@@ -39,7 +39,7 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
         {kpiCards.map(({ label, value, icon: Icon, change }) => (
           <div
             key={label}
@@ -54,7 +54,7 @@ export default function Dashboard() {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <p className="text-xs mb-1" style={{ color: '#7E8494' }}>{label}</p>
-                <p style={{ fontSize: '1.875rem', fontWeight: 600, color: '#E2E4EB', lineHeight: 1 }}>
+                <p className="text-2xl sm:text-3xl" style={{ fontWeight: 600, color: '#E2E4EB', lineHeight: 1 }}>
                   {value}
                 </p>
               </div>
@@ -82,8 +82,8 @@ export default function Dashboard() {
         </h2>
         <div className="space-y-3">
           {funnelStages.map((stage, i) => (
-            <div key={stage.label} className="flex items-center gap-4">
-              <span className="text-sm w-36 flex-shrink-0" style={{ color: '#7E8494' }}>{stage.label}</span>
+            <div key={stage.label} className="flex items-center gap-2 sm:gap-4">
+              <span className="text-xs sm:text-sm w-24 sm:w-36 flex-shrink-0" style={{ color: '#7E8494' }}>{stage.label}</span>
               <div className="flex-1 h-7 rounded relative" style={{ backgroundColor: '#1D202A' }}>
                 <div
                   className="h-full rounded flex items-center px-3"
@@ -111,13 +111,14 @@ export default function Dashboard() {
             Recent Activity
           </h2>
         </div>
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[600px]">
           <thead>
             <tr style={{ backgroundColor: '#1D202A' }}>
               {['Candidate', 'Job Role', 'Stage', 'Score', 'Date'].map(h => (
                 <th
                   key={h}
-                  className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
                   style={{ color: '#7E8494' }}
                 >
                   {h}
@@ -135,7 +136,7 @@ export default function Dashboard() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.04)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
               >
-                <td className="px-6 py-3.5">
+                <td className="px-4 sm:px-6 py-3.5">
                   <div className="flex items-center gap-3">
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
@@ -148,8 +149,8 @@ export default function Dashboard() {
                     </span>
                   </div>
                 </td>
-                <td className="px-6 py-3.5 text-sm" style={{ color: '#7E8494' }}>{row.role}</td>
-                <td className="px-6 py-3.5">
+                <td className="px-4 sm:px-6 py-3.5 text-sm" style={{ color: '#7E8494' }}>{row.role}</td>
+                <td className="px-4 sm:px-6 py-3.5">
                   <span
                     className="text-xs px-2 py-1 rounded border"
                     style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
@@ -157,16 +158,17 @@ export default function Dashboard() {
                     {row.stage}
                   </span>
                 </td>
-                <td className="px-6 py-3.5">
+                <td className="px-4 sm:px-6 py-3.5">
                   <span className="text-sm font-semibold" style={{ color: getScoreColor(row.score) }}>
                     {row.score}
                   </span>
                 </td>
-                <td className="px-6 py-3.5 text-sm" style={{ color: '#7E8494', opacity: 0.6 }}>{row.date}</td>
+                <td className="px-4 sm:px-6 py-3.5 text-sm" style={{ color: '#7E8494', opacity: 0.6 }}>{row.date}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

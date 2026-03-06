@@ -184,7 +184,7 @@ export default function CandidateProfile() {
         onCancel={() => setShowRejectModal(false)}
       />
 
-      <div className="p-6 max-w-6xl">
+      <div className="p-4 sm:p-6 max-w-6xl">
         {/* Back button */}
         <button
           onClick={() => navigate('/recruiter/candidates')}
@@ -197,9 +197,9 @@ export default function CandidateProfile() {
           Back to Leaderboard
         </button>
 
-        <div className="flex gap-5">
+        <div className="flex flex-col lg:flex-row gap-5">
           {/* Left column – 35% */}
-          <div className="w-80 flex-shrink-0 space-y-4">
+          <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
             {/* Identity card */}
             <div
               className="rounded-lg p-6 border"
@@ -340,7 +340,7 @@ export default function CandidateProfile() {
               <h3 className="mb-5" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
                 Assessment Scores
               </h3>
-              <div className="grid grid-cols-4 gap-4 mb-6">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
                 {[
                   { label: 'CV Match', score: candidate.cvScore },
                   { label: 'Coding', score: candidate.codingScore },
@@ -385,7 +385,7 @@ export default function CandidateProfile() {
             />
 
             {/* Action buttons */}
-            <div className="flex gap-3 flex-wrap">
+            <div className="flex gap-2 sm:gap-3 flex-wrap">
               <button
                 onClick={() => navigate(`/recruiter/candidates/${candidate.id}/interview`)}
                 className="px-5 py-2.5 text-sm text-white rounded transition-colors cursor-pointer"

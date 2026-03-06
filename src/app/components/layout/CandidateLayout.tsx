@@ -32,7 +32,7 @@ export default function CandidateLayout() {
     <div className="min-h-screen" style={{ backgroundColor: '#0F1117' }}>
       {/* Top navigation bar */}
       <header className="border-b" style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.06)' }}>
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div
@@ -44,9 +44,9 @@ export default function CandidateLayout() {
             <span className="text-base font-semibold" style={{ color: '#E2E4EB' }}>RecruitAI</span>
           </div>
 
-          {/* Progress indicator - center */}
+          {/* Progress indicator - center (hidden on small screens) */}
           {!isLobby && !isConfirmation && !isProfile && (
-            <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-2">
               {stages.map((stage, i) => (
                 <div key={stage.path} className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
@@ -63,7 +63,7 @@ export default function CandidateLayout() {
                       {i + 1}
                     </div>
                     <span
-                      className="text-sm"
+                      className="text-sm hidden md:inline"
                       style={{
                         color: i === currentStageIndex ? '#E2E4EB' : i < currentStageIndex ? '#3ECF8E' : '#7E8494',
                         opacity: i > currentStageIndex ? 0.6 : 1,
@@ -96,7 +96,7 @@ export default function CandidateLayout() {
             >
               {user ? getInitials(user.name) : 'U'}
             </button>
-            <span className="text-sm" style={{ color: '#7E8494' }}>{user?.name || 'Candidate'}</span>
+            <span className="text-sm hidden sm:inline" style={{ color: '#7E8494' }}>{user?.name || 'Candidate'}</span>
             <button
               onClick={handleLogout}
               className="transition-colors cursor-pointer"

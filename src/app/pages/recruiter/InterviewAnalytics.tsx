@@ -44,7 +44,7 @@ export default function InterviewAnalytics() {
   const [progress, setProgress] = useState(37);
 
   return (
-    <div className="p-6 max-w-7xl">
+    <div className="p-4 sm:p-6 max-w-7xl">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -134,7 +134,7 @@ export default function InterviewAnalytics() {
       </div>
 
       {/* Transcript + Charts */}
-      <div className="flex gap-5">
+      <div className="flex flex-col lg:flex-row gap-5">
         {/* Transcript */}
         <div
           className="flex-1 rounded-lg border overflow-hidden"
@@ -174,7 +174,7 @@ export default function InterviewAnalytics() {
         </div>
 
         {/* Charts + Insight */}
-        <div className="w-80 flex-shrink-0 space-y-4">
+        <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
           {/* Charts */}
           {[
             { label: 'Clarity Score by Question', data: clarityData, color: '#7C6AEF' },

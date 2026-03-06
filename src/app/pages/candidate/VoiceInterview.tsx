@@ -88,7 +88,7 @@ export default function VoiceInterview() {
     >
       {/* Top bar */}
       <div
-        className="flex items-center justify-between px-8 py-3 border-b"
+        className="flex items-center justify-between px-4 sm:px-8 py-3 border-b"
         style={{ borderColor: 'rgba(255,255,255,0.06)' }}
       >
         <div
@@ -122,7 +122,7 @@ export default function VoiceInterview() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 py-12">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-12">
         {/* AI Avatar */}
         <div
           className="w-24 h-24 rounded-full flex items-center justify-center mb-8"

@@ -15,7 +15,7 @@ export default function RecruiterProfile() {
   const [twoFactor, setTwoFactor] = useState(false);
 
   return (
-    <div className="p-6 max-w-2xl">
+    <div className="p-4 sm:p-6 max-w-2xl">
       {/* Back button */}
       <button
         onClick={() => navigate('/recruiter')}

@@ -45,7 +45,7 @@ export default function SystemDesignReview() {
   const designScore = Math.round((candidate.codingScore + candidate.communicationScore) / 2);
 
   return (
-    <div className="p-6 max-w-5xl">
+    <div className="p-4 sm:p-6 max-w-5xl">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -87,9 +87,9 @@ export default function SystemDesignReview() {
         </p>
       </div>
 
-      <div className="flex gap-5">
+      <div className="flex flex-col lg:flex-row gap-5">
         {/* Candidate response */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div
             className="rounded-lg border overflow-hidden"
             style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
@@ -109,7 +109,7 @@ export default function SystemDesignReview() {
         </div>
 
         {/* AI Feedback */}
-        <div className="w-80 flex-shrink-0 space-y-5">
+        <div className="w-full lg:w-80 flex-shrink-0 space-y-5">
           <div
             className="rounded-lg p-5 border"
             style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}

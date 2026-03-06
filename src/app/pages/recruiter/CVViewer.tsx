@@ -9,7 +9,7 @@ export default function CVViewer() {
   const initials = candidate.name.split(' ').map(n => n[0]).join('');
 
   return (
-    <div className="p-6 max-w-3xl">
+    <div className="p-4 sm:p-6 max-w-3xl">
       {/* Back button */}
       <button
         onClick={() => navigate('/recruiter/candidates')}
@@ -29,7 +29,7 @@ export default function CVViewer() {
       >
         {/* CV Header bar */}
         <div
-          className="px-8 py-5 flex items-center gap-3 border-b"
+          className="px-4 sm:px-8 py-5 flex items-center gap-3 border-b"
           style={{ backgroundColor: '#0B0D13', borderColor: 'rgba(255,255,255,0.08)' }}
         >
           <FileText size={16} style={{ color: '#E2E4EB' }} />
@@ -38,9 +38,9 @@ export default function CVViewer() {
           </span>
         </div>
 
-        <div className="px-10 py-8">
+        <div className="px-4 sm:px-10 py-6 sm:py-8">
           {/* Candidate Header */}
-          <div className="flex items-start gap-5 mb-8 pb-8 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div className="flex flex-col sm:flex-row items-start gap-5 mb-8 pb-8 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-semibold flex-shrink-0"
               style={{ backgroundColor: '#7C6AEF' }}

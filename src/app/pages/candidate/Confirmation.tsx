@@ -26,7 +26,7 @@ export default function Confirmation() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-16" style={{ backgroundColor: '#1D202A' }}>
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16" style={{ backgroundColor: '#1D202A' }}>
       <div className="max-w-lg w-full text-center">
         {/* Checkmark */}
         <div className="flex justify-center mb-6">
@@ -82,7 +82,7 @@ export default function Confirmation() {
 
         {/* Summary */}
         <div
-          className="grid grid-cols-3 gap-3 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8"
         >
           {[
             { label: 'Voice Interview', status: 'Submitted' },

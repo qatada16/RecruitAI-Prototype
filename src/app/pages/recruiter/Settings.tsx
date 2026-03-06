@@ -294,7 +294,7 @@ function CVParsingTab() {
         {/* Add rule row */}
         {showAdd && (
           <div
-            className="flex items-center gap-3 px-5 py-3 border-b"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 px-5 py-3 border-b"
             style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A' }}
           >
             <input
@@ -344,7 +344,8 @@ function CVParsingTab() {
           </div>
         )}
 
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px]">
           <thead>
             <tr style={{ backgroundColor: '#1D202A' }}>
               {['Skill / Keyword', 'Department', 'Weight / Priority', 'Active'].map(h => (
@@ -395,6 +396,7 @@ function CVParsingTab() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
@@ -406,14 +408,14 @@ export default function Settings() {
   const [tab, setTab] = useState<'job-posting' | 'cv-parsing'>('job-posting');
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className="mb-6">
         <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>Settings</h1>
         <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>Configure job postings, assessments, and parsing rules.</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 mb-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <div className="flex gap-0 mb-6 border-b overflow-x-auto" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         {[
           { key: 'job-posting', label: 'Job Posting & Assessment Creator' },
           { key: 'cv-parsing', label: 'CV Parsing Rules' },
@@ -421,7 +423,7 @@ export default function Settings() {
           <button
             key={key}
             onClick={() => setTab(key as typeof tab)}
-            className="px-5 py-3 text-sm transition-colors border-b-2 -mb-px cursor-pointer"
+            className="px-4 sm:px-5 py-3 text-sm transition-colors border-b-2 -mb-px cursor-pointer whitespace-nowrap"
             style={{
               borderColor: tab === key ? '#7C6AEF' : 'transparent',
               color: tab === key ? '#7C6AEF' : '#7E8494',

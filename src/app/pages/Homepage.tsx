@@ -13,7 +13,7 @@ export default function Homepage() {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0F1117' }}>
       {/* Top navigation */}
       <header className="border-b" style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#13151D' }}>
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div
               className="w-8 h-8 rounded flex items-center justify-center"
@@ -47,7 +47,7 @@ export default function Homepage() {
       </header>
 
       {/* Hero section */}
-      <section className="flex-1 flex items-center justify-center px-6 py-20">
+      <section className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-3xl text-center">
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded text-sm mb-6 border"
@@ -58,7 +58,7 @@ export default function Homepage() {
           </div>
           <h1
             className="mb-4"
-            style={{ fontSize: '2.5rem', fontWeight: 600, color: '#E2E4EB', lineHeight: 1.2 }}
+            style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', fontWeight: 600, color: '#E2E4EB', lineHeight: 1.2 }}
           >
             Hire Smarter with AI-Powered Recruitment
           </h1>
@@ -68,7 +68,7 @@ export default function Homepage() {
           <p className="mb-10" style={{ fontSize: '1rem', color: '#7E8494', opacity: 0.75 }}>
             Score candidates objectively, reduce time-to-hire by 70%, and focus on people who matter most.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
             <button
               onClick={() => navigate('/signup')}
               className="px-6 py-3 text-white rounded flex items-center gap-2 text-sm transition-colors cursor-pointer"
@@ -93,7 +93,7 @@ export default function Homepage() {
       </section>
 
       {/* Feature cards */}
-      <section className="px-6 pb-20">
+      <section className="px-4 sm:px-6 pb-12 sm:pb-20">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-center mb-2"
@@ -104,7 +104,7 @@ export default function Homepage() {
           <p className="text-center mb-10 text-sm" style={{ color: '#7E8494' }}>
             Three assessment pillars, one unified platform.
           </p>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 icon: Mic,
@@ -164,7 +164,7 @@ export default function Homepage() {
 
       {/* Stats bar */}
       <section className="border-t border-b py-10" style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}>
-        <div className="max-w-4xl mx-auto px-6 grid grid-cols-4 gap-6 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[
             { value: '70%', label: 'Reduction in time-to-hire' },
             { value: '500+', label: 'Companies using RecruitAI' },
@@ -182,7 +182,7 @@ export default function Homepage() {
       </section>
 
       {/* How It Works section */}
-      <section id="how-it-works" className="px-6 py-20" style={{ backgroundColor: '#0F1117' }}>
+      <section id="how-it-works" className="px-4 sm:px-6 py-12 sm:py-20" style={{ backgroundColor: '#0F1117' }}>
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-center mb-3"
@@ -194,7 +194,7 @@ export default function Homepage() {
             From job posting to ranked results — fully automated, end-to-end.
           </p>
 
-          <div className="grid grid-cols-4 gap-6 relative">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 relative">
             {/* Connector line */}
             <div
               className="absolute top-8 left-[12.5%] right-[12.5%] h-px hidden lg:block"

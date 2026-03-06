@@ -1,6 +1,7 @@
-import { NavLink, Outlet, useNavigate } from 'react-router';
+import { useState } from 'react';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router';
 import {
-  LayoutDashboard, Users, Mic, Code2, Settings, LogOut, Bell
+  LayoutDashboard, Users, Mic, Code2, Settings, LogOut, Bell, Menu, X
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -19,21 +20,36 @@ function getInitials(name: string) {
 export default function RecruiterLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
+  const closeSidebar = () => setSidebarOpen(false);
+
   return (
     <div className="flex h-screen overflow-hidden" style={{ backgroundColor: '#0F1117' }}>
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden"
+          style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
+          onClick={closeSidebar}
+        />
+      )}
+
       {/* Sidebar */}
       <aside
-        className="w-60 flex-shrink-0 flex flex-col h-full"
+        className={`fixed inset-y-0 left-0 z-50 w-60 flex flex-col h-full transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 lg:flex-shrink-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
         style={{ backgroundColor: '#0B0D13' }}
       >
         {/* Logo */}
-        <div className="px-6 py-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+        <div className="px-6 py-5 border-b flex items-center justify-between" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
           <div className="flex items-center gap-2">
             <div
               className="w-8 h-8 rounded flex items-center justify-center"
@@ -43,6 +59,12 @@ export default function RecruiterLayout() {
             </div>
             <span className="text-white text-base font-semibold tracking-tight">RecruitAI</span>
           </div>
+          <button
+            onClick={closeSidebar}
+            className="lg:hidden text-gray-400 hover:text-white transition-colors cursor-pointer"
+          >
+            <X size={18} />
+          </button>
         </div>
 
         {/* Navigation */}
@@ -52,6 +74,7 @@ export default function RecruiterLayout() {
               key={to}
               to={to}
               end={to === '/recruiter'}
+              onClick={closeSidebar}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded text-sm transition-all cursor-pointer ${
                   isActive
@@ -93,7 +116,7 @@ export default function RecruiterLayout() {
         <div className="px-3 py-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
           <div className="flex items-center gap-3 px-3 py-2">
             <button
-              onClick={() => navigate('/recruiter/profile')}
+              onClick={() => { navigate('/recruiter/profile'); closeSidebar(); }}
               className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-semibold transition-all cursor-pointer"
               style={{ backgroundColor: '#7C6AEF' }}
               title="View profile"
@@ -125,10 +148,17 @@ export default function RecruiterLayout() {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top header bar */}
         <header
-          className="h-14 flex items-center justify-between px-6 border-b flex-shrink-0"
+          className="h-14 flex items-center justify-between px-4 sm:px-6 border-b flex-shrink-0"
           style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.06)' }}
         >
-          <div />
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden transition-colors cursor-pointer"
+            style={{ color: '#7E8494' }}
+          >
+            <Menu size={20} />
+          </button>
+          <div className="hidden lg:block" />
           <div className="flex items-center gap-3">
             <button
               className="transition-colors cursor-pointer"

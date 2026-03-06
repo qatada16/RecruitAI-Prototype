@@ -141,7 +141,7 @@ export default function CandidateProfilePage() {
         <CVViewerModal name={user.name} onClose={() => setShowCVViewer(false)} />
       )}
 
-      <div className="max-w-2xl mx-auto px-6 py-10">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         {/* Back button */}
         <button
           onClick={() => navigate('/candidate')}
