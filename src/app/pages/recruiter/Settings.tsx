@@ -1,8 +1,8 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { cvKeywordRules } from '../../data/mockData';
 
-// ─── Job Posting Tab ─────────────────────────────────────────────────────────
+// â”€â”€â”€ Job Posting Tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function JobPostingTab() {
   const [weights, setWeights] = useState({ cv: 35, coding: 40, voice: 25 });
@@ -42,14 +42,14 @@ function JobPostingTab() {
       {/* Job Details */}
       <div
         className="rounded-lg p-6 border"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <h3 className="mb-5" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h3 className="mb-5" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Job Details
         </h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm mb-1.5" style={{ color: '#7E8494', fontWeight: 500 }}>
+            <label className="block text-sm mb-1.5" style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
               Job Title
             </label>
             <input
@@ -58,20 +58,20 @@ function JobPostingTab() {
               onChange={e => setTitle(e.target.value)}
               placeholder="e.g. Senior Frontend Engineer"
               className="w-full px-3 py-2.5 text-sm rounded border outline-none"
-              style={{ borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB', backgroundColor: '#13151D' }}
-              onFocus={e => { e.target.style.borderColor = '#7C6AEF'; e.target.style.backgroundColor = '#171921'; }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.backgroundColor = '#13151D'; }}
+              style={{ borderColor: 'var(--border-input)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-header)' }}
+              onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
+              onBlur={e => { e.target.style.borderColor = 'var(--border-input)'; e.target.style.backgroundColor = 'var(--bg-header)'; }}
             />
           </div>
           <div>
-            <label className="block text-sm mb-1.5" style={{ color: '#7E8494', fontWeight: 500 }}>
+            <label className="block text-sm mb-1.5" style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
               Department
             </label>
             <select
               value={department}
               onChange={e => setDepartment(e.target.value)}
               className="w-full px-3 py-2.5 text-sm rounded border outline-none appearance-none cursor-pointer"
-              style={{ borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB', backgroundColor: '#13151D' }}
+              style={{ borderColor: 'var(--border-input)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-header)' }}
             >
               {['Engineering', 'Product', 'Design', 'Infrastructure', 'Data Science'].map(d => (
                 <option key={d}>{d}</option>
@@ -79,25 +79,25 @@ function JobPostingTab() {
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-1.5" style={{ color: '#7E8494', fontWeight: 500 }}>
+            <label className="block text-sm mb-1.5" style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
               Required Skills
             </label>
             <div
               className="flex flex-wrap gap-1.5 p-2 rounded border min-h-10"
-              style={{ borderColor: 'rgba(255,255,255,0.08)', backgroundColor: '#13151D' }}
+              style={{ borderColor: 'var(--border-input)', backgroundColor: 'var(--bg-header)' }}
             >
               {skills.map(s => (
                 <span
                   key={s}
                   className="flex items-center gap-1 text-xs px-2 py-1 rounded border"
-                  style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
+                  style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
                 >
                   {s}
                   <button
                     onClick={() => setSkills(sk => sk.filter(x => x !== s))}
                     className="text-gray-400 hover:text-red-500 cursor-pointer"
                   >
-                    ×
+                    Ã—
                   </button>
                 </span>
               ))}
@@ -106,9 +106,9 @@ function JobPostingTab() {
                 value={skillInput}
                 onChange={e => setSkillInput(e.target.value)}
                 onKeyDown={addSkill}
-                placeholder="Add skill, press Enter…"
+                placeholder="Add skill, press Enterâ€¦"
                 className="text-sm outline-none border-none flex-1 min-w-24 px-1 bg-transparent"
-                style={{ color: '#E2E4EB' }}
+                style={{ color: 'var(--text-primary)' }}
               />
             </div>
           </div>
@@ -118,20 +118,20 @@ function JobPostingTab() {
       {/* Assessment Weights */}
       <div
         className="rounded-lg p-6 border"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
         <div className="flex items-center justify-between mb-1">
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             Assessment Weights
           </h3>
           <span
             className="text-sm font-semibold"
-            style={{ color: total === 100 ? '#3ECF8E' : '#EF6B6B' }}
+            style={{ color: total === 100 ? 'var(--success)' : 'var(--error)' }}
           >
             Total: {total}%
           </span>
         </div>
-        <p className="text-xs mb-5" style={{ color: '#7E8494', opacity: 0.6 }}>Weights must add up to 100%.</p>
+        <p className="text-xs mb-5" style={{ color: 'var(--text-secondary)', opacity: 0.6 }}>Weights must add up to 100%.</p>
         <div className="space-y-4">
           {[
             { key: 'cv' as const, label: 'CV Score Weight' },
@@ -140,7 +140,7 @@ function JobPostingTab() {
           ].map(({ key, label }) => (
             <div key={key}>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-sm" style={{ color: '#7E8494', fontWeight: 500 }}>
+                <label className="text-sm" style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                   {label}
                 </label>
                 <div className="flex items-center gap-1">
@@ -151,11 +151,11 @@ function JobPostingTab() {
                     value={weights[key]}
                     onChange={e => setWeight(key, Number(e.target.value))}
                     className="w-14 text-center px-2 py-1 text-sm rounded border outline-none"
-                    style={{ borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB', backgroundColor: '#13151D' }}
-                    onFocus={e => { e.target.style.borderColor = '#7C6AEF'; e.target.style.backgroundColor = '#171921'; }}
-                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.backgroundColor = '#13151D'; }}
+                    style={{ borderColor: 'var(--border-input)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-header)' }}
+                    onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
+                    onBlur={e => { e.target.style.borderColor = 'var(--border-input)'; e.target.style.backgroundColor = 'var(--bg-header)'; }}
                   />
-                  <span className="text-sm" style={{ color: '#7E8494' }}>%</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>%</span>
                 </div>
               </div>
               <input
@@ -165,7 +165,7 @@ function JobPostingTab() {
                 value={weights[key]}
                 onChange={e => setWeight(key, Number(e.target.value))}
                 className="w-full cursor-pointer"
-                style={{ accentColor: '#7C6AEF' }}
+                style={{ accentColor: 'var(--accent)' }}
               />
             </div>
           ))}
@@ -175,9 +175,9 @@ function JobPostingTab() {
       {/* Question Bank */}
       <div
         className="rounded-lg p-6 border"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Interview Question Bank
         </h3>
         <div className="space-y-2 mb-4">
@@ -185,12 +185,12 @@ function JobPostingTab() {
             <div
               key={i}
               className="flex items-start gap-3 p-3 rounded border"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+              style={{ borderColor: 'var(--border)' }}
             >
-              <span className="text-xs font-medium mt-0.5 flex-shrink-0" style={{ color: '#7E8494' }}>
+              <span className="text-xs font-medium mt-0.5 flex-shrink-0" style={{ color: 'var(--text-secondary)' }}>
                 Q{i + 1}
               </span>
-              <span className="flex-1 text-sm" style={{ color: '#7E8494' }}>{q}</span>
+              <span className="flex-1 text-sm" style={{ color: 'var(--text-secondary)' }}>{q}</span>
               <button
                 onClick={() => setQuestions(qs => qs.filter((_, j) => j !== i))}
                 className="text-gray-300 hover:text-red-400 transition-colors flex-shrink-0 cursor-pointer"
@@ -205,19 +205,19 @@ function JobPostingTab() {
             type="text"
             value={newQuestion}
             onChange={e => setNewQuestion(e.target.value)}
-            placeholder="Add a new interview question…"
+            placeholder="Add a new interview questionâ€¦"
             className="flex-1 px-3 py-2 text-sm rounded border outline-none"
-            style={{ borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB', backgroundColor: '#13151D' }}
-            onFocus={e => { e.target.style.borderColor = '#7C6AEF'; e.target.style.backgroundColor = '#171921'; }}
-            onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.backgroundColor = '#13151D'; }}
+            style={{ borderColor: 'var(--border-input)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-header)' }}
+            onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
+            onBlur={e => { e.target.style.borderColor = 'var(--border-input)'; e.target.style.backgroundColor = 'var(--bg-header)'; }}
             onKeyDown={e => e.key === 'Enter' && addQuestion()}
           />
           <button
             onClick={addQuestion}
             className="px-3 py-2 text-white rounded flex items-center gap-1 text-sm transition-colors cursor-pointer"
-            style={{ backgroundColor: '#7C6AEF' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+            style={{ backgroundColor: 'var(--accent)' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
           >
             <Plus size={14} />
             Add
@@ -227,9 +227,9 @@ function JobPostingTab() {
 
       <button
         className="px-6 py-2.5 text-sm text-white rounded transition-colors cursor-pointer"
-        style={{ backgroundColor: '#7C6AEF' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+        style={{ backgroundColor: 'var(--accent)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
       >
         Save &amp; Publish
       </button>
@@ -237,7 +237,7 @@ function JobPostingTab() {
   );
 }
 
-// ─── CV Parsing Tab ───────────────────────────────────────────────────────────
+// â”€â”€â”€ CV Parsing Tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function CVParsingTab() {
   const [rules, setRules] = useState(cvKeywordRules);
@@ -259,32 +259,32 @@ function CVParsingTab() {
   };
 
   const weightColor: Record<string, string> = {
-    High: '#7C6AEF',
-    Medium: '#E5A93B',
-    Low: '#7E8494',
+    High: 'var(--accent)',
+    Medium: 'var(--warning)',
+    Low: 'var(--text-secondary)',
   };
 
   return (
     <div className="max-w-3xl">
       <div
         className="rounded-lg border overflow-hidden"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+        <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
           <div>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               CV Parsing Keyword Rules
             </h3>
-            <p className="text-xs mt-0.5" style={{ color: '#7E8494', opacity: 0.6 }}>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.6 }}>
               Configure which skills and keywords affect candidate CV scores.
             </p>
           </div>
           <button
             onClick={() => setShowAdd(s => !s)}
             className="flex items-center gap-1.5 px-3 py-2 text-sm text-white rounded transition-colors cursor-pointer"
-            style={{ backgroundColor: '#7C6AEF' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+            style={{ backgroundColor: 'var(--accent)' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
           >
             <Plus size={13} />
             Add New Rule
@@ -295,7 +295,7 @@ function CVParsingTab() {
         {showAdd && (
           <div
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 px-5 py-3 border-b"
-            style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A' }}
+            style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-elevated)' }}
           >
             <input
               type="text"
@@ -303,15 +303,15 @@ function CVParsingTab() {
               onChange={e => setNewRule(r => ({ ...r, skill: e.target.value }))}
               placeholder="Skill / Keyword"
               className="flex-1 px-3 py-2 text-sm rounded border outline-none"
-              style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB' }}
-              onFocus={e => { e.target.style.borderColor = '#7C6AEF'; }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+              style={{ backgroundColor: 'var(--bg-header)', borderColor: 'var(--border-input)', color: 'var(--text-primary)' }}
+              onFocus={e => { e.target.style.borderColor = 'var(--accent)'; }}
+              onBlur={e => { e.target.style.borderColor = 'var(--border-input)'; }}
             />
             <select
               value={newRule.department}
               onChange={e => setNewRule(r => ({ ...r, department: e.target.value }))}
               className="px-3 py-2 text-sm rounded border outline-none appearance-none cursor-pointer"
-              style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB' }}
+              style={{ backgroundColor: 'var(--bg-header)', borderColor: 'var(--border-input)', color: 'var(--text-primary)' }}
             >
               {['Engineering', 'Frontend Engineering', 'Backend Engineering', 'DevOps', 'Infrastructure', 'Product'].map(d => (
                 <option key={d}>{d}</option>
@@ -321,22 +321,22 @@ function CVParsingTab() {
               value={newRule.weight}
               onChange={e => setNewRule(r => ({ ...r, weight: e.target.value }))}
               className="px-3 py-2 text-sm rounded border outline-none appearance-none cursor-pointer"
-              style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.08)', color: '#E2E4EB' }}
+              style={{ backgroundColor: 'var(--bg-header)', borderColor: 'var(--border-input)', color: 'var(--text-primary)' }}
             >
               {['High', 'Medium', 'Low'].map(w => <option key={w}>{w}</option>)}
             </select>
             <button
               onClick={addRule}
               className="px-4 py-2 text-sm text-white rounded cursor-pointer transition-colors"
-              style={{ backgroundColor: '#3ECF8E' }}
+              style={{ backgroundColor: 'var(--success)' }}
             >
               Save
             </button>
             <button
               onClick={() => setShowAdd(false)}
               className="px-3 py-2 text-sm rounded border cursor-pointer transition-colors"
-              style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1D202A'; }}
+              style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--bg-elevated)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
             >
               Cancel
@@ -347,12 +347,12 @@ function CVParsingTab() {
         <div className="overflow-x-auto">
         <table className="w-full min-w-[500px]">
           <thead>
-            <tr style={{ backgroundColor: '#1D202A' }}>
+            <tr style={{ backgroundColor: 'var(--bg-elevated)' }}>
               {['Skill / Keyword', 'Department', 'Weight / Priority', 'Active'].map(h => (
                 <th
                   key={h}
                   className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                  style={{ color: '#7E8494' }}
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   {h}
                 </th>
@@ -364,14 +364,14 @@ function CVParsingTab() {
               <tr
                 key={rule.id}
                 className="border-t"
-                style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+                style={{ borderColor: 'var(--border)' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
               >
-                <td className="px-5 py-3.5 text-sm font-medium" style={{ color: '#E2E4EB' }}>
+                <td className="px-5 py-3.5 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                   {rule.skill}
                 </td>
-                <td className="px-5 py-3.5 text-sm" style={{ color: '#7E8494' }}>{rule.department}</td>
+                <td className="px-5 py-3.5 text-sm" style={{ color: 'var(--text-secondary)' }}>{rule.department}</td>
                 <td className="px-5 py-3.5">
                   <span
                     className="text-xs font-medium"
@@ -384,7 +384,7 @@ function CVParsingTab() {
                   <button
                     onClick={() => toggleActive(rule.id)}
                     className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors cursor-pointer"
-                    style={{ backgroundColor: rule.active ? '#7C6AEF' : '#1D202A' }}
+                    style={{ backgroundColor: rule.active ? 'var(--accent)' : 'var(--bg-elevated)' }}
                   >
                     <span
                       className="inline-block w-3.5 h-3.5 rounded-full bg-white transition-transform"
@@ -402,7 +402,7 @@ function CVParsingTab() {
   );
 }
 
-// ─── Main Settings Component ──────────────────────────────────────────────────
+// â”€â”€â”€ Main Settings Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function Settings() {
   const [tab, setTab] = useState<'job-posting' | 'cv-parsing'>('job-posting');
@@ -410,12 +410,12 @@ export default function Settings() {
   return (
     <div className="p-4 sm:p-6">
       <div className="mb-6">
-        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>Settings</h1>
-        <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>Configure job postings, assessments, and parsing rules.</p>
+        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>Settings</h1>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>Configure job postings, assessments, and parsing rules.</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 mb-6 border-b overflow-x-auto" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <div className="flex gap-0 mb-6 border-b overflow-x-auto" style={{ borderColor: 'var(--border)' }}>
         {[
           { key: 'job-posting', label: 'Job Posting & Assessment Creator' },
           { key: 'cv-parsing', label: 'CV Parsing Rules' },
@@ -425,15 +425,15 @@ export default function Settings() {
             onClick={() => setTab(key as typeof tab)}
             className="px-4 sm:px-5 py-3 text-sm transition-colors border-b-2 -mb-px cursor-pointer whitespace-nowrap"
             style={{
-              borderColor: tab === key ? '#7C6AEF' : 'transparent',
-              color: tab === key ? '#7C6AEF' : '#7E8494',
+              borderColor: tab === key ? 'var(--accent)' : 'transparent',
+              color: tab === key ? 'var(--accent)' : 'var(--text-secondary)',
               fontWeight: tab === key ? 500 : 400,
             }}
             onMouseEnter={e => {
-              if (tab !== key) (e.currentTarget as HTMLElement).style.color = '#7C6AEF';
+              if (tab !== key) (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
             }}
             onMouseLeave={e => {
-              if (tab !== key) (e.currentTarget as HTMLElement).style.color = '#7E8494';
+              if (tab !== key) (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)';
             }}
           >
             {label}

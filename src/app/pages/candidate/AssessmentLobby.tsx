@@ -1,25 +1,38 @@
-import { useNavigate } from 'react-router';
-import { Mic, Code2, Layout, CheckCircle, XCircle, Globe, Camera, AlertCircle } from 'lucide-react';
+﻿import { useNavigate } from 'react-router';
+import { Mic, Code2, Layout, CheckCircle, Globe, Camera, AlertCircle, ExternalLink } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCandidateContext } from '../../context/CandidateContext';
 
-function HardwareStatus({ icon: Icon, label, ok }: { icon: any; label: string; ok: boolean }) {
+function HardwareStatus({
+  icon: Icon, label, ok, helpUrl,
+}: { icon: any; label: string; ok: boolean; helpUrl?: string }) {
   return (
     <div
-      className="flex items-center gap-3 px-4 py-3 rounded-lg border"
-      style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
+      className="flex items-center gap-3 px-4 py-3 rounded-md flex-wrap"
+      style={{ border: '1px solid var(--border)', backgroundColor: 'var(--bg-elevated)' }}
     >
-      <Icon size={15} style={{ color: ok ? '#3ECF8E' : '#EF6B6B' }} />
-      <span className="text-sm" style={{ color: '#7E8494' }}>{label}</span>
+      <Icon size={16} style={{ color: ok ? 'var(--success)' : 'var(--error)' }} />
+      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>{label}</span>
       <span
-        className="ml-auto text-xs px-2 py-0.5 rounded"
+        className="ml-auto text-xs px-2 py-0.5 rounded-full font-medium"
         style={{
-          color: ok ? '#3ECF8E' : '#EF6B6B',
-          backgroundColor: ok ? 'rgba(62,207,142,0.08)' : 'rgba(239,107,107,0.08)',
+          color: ok ? 'var(--success)' : 'var(--error)',
+          backgroundColor: ok ? 'var(--success-bg)' : 'var(--error-bg)',
         }}
       >
-        {ok ? '✓ Ready' : '✗ Not Available'}
+        {ok ? '✓ Ready' : '✗ Not accessible'}
       </span>
+      {!ok && helpUrl && (
+        <a
+          href={helpUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs inline-flex items-center gap-1 ml-1 underline"
+          style={{ color: 'var(--accent)' }}
+        >
+          Check browser permissions <ExternalLink size={11} />
+        </a>
+      )}
     </div>
   );
 }
@@ -44,51 +57,48 @@ function TaskCard({
   onBegin: () => void;
 }) {
   const statusConfig = {
-    not_started: { label: 'Not Started', color: '#7E8494', bg: '#1D202A' },
-    in_progress: { label: 'In Progress', color: '#E5A93B', bg: 'rgba(229,169,59,0.08)' },
-    completed: { label: 'Completed', color: '#3ECF8E', bg: 'rgba(62,207,142,0.08)' },
+    not_started: { label: 'Not Started', color: 'var(--text-secondary)', bg: 'var(--bg-elevated)' },
+    in_progress: { label: 'In Progress', color: 'var(--warning)', bg: 'var(--warning-bg)' },
+    completed: { label: 'Completed', color: 'var(--success)', bg: 'var(--success-bg)' },
   };
   const s = statusConfig[status];
 
   return (
     <div
-      className="rounded-lg p-6 border flex flex-col transition-colors"
+      className="rounded-lg p-6 flex flex-col ra-card-interactive"
       style={{
-        borderColor: 'rgba(255,255,255,0.06)',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-        borderTop: '3px solid #7C6AEF',
-        backgroundColor: '#171921',
-        opacity: disabled && status !== 'completed' ? 0.6 : 1,
+        border: '1px solid var(--border)',
+        borderTop: '3px solid var(--accent)',
+        boxShadow: 'var(--shadow-card)',
+        backgroundColor: 'var(--bg-surface)',
+        opacity: disabled && status !== 'completed' ? 0.7 : 1,
       }}
     >
       <div className="flex items-start justify-between mb-4">
         <div
-          className="w-10 h-10 rounded flex items-center justify-center"
-          style={{ backgroundColor: '#1D202A' }}
+          className="w-10 h-10 rounded-md flex items-center justify-center"
+          style={{ backgroundColor: 'var(--accent-subtle)' }}
         >
-          <Icon size={18} style={{ color: '#7C6AEF' }} />
+          <Icon size={19} style={{ color: 'var(--accent)' }} />
         </div>
         {status === 'completed' ? (
-          <CheckCircle size={18} style={{ color: '#3ECF8E' }} />
+          <CheckCircle size={18} style={{ color: 'var(--success)' }} />
         ) : (
           <span
-            className="text-xs px-2 py-1 rounded"
+            className="text-xs px-2 py-0.5 rounded-full font-medium"
             style={{ color: s.color, backgroundColor: s.bg }}
           >
             {s.label}
           </span>
         )}
       </div>
-      <h3 className="mb-1" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+      <h3 className="mb-1" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
         {title}
       </h3>
-      <p className="text-sm mb-5" style={{ color: '#7E8494', opacity: 0.6 }}>Est. {duration}</p>
+      <p className="text-sm mb-5" style={{ color: 'var(--text-secondary)' }}>Est. {duration}</p>
 
       {status === 'completed' ? (
-        <div
-          className="mt-auto flex items-center gap-2 text-sm"
-          style={{ color: '#3ECF8E' }}
-        >
+        <div className="mt-auto flex items-center gap-2 text-sm" style={{ color: 'var(--success)' }}>
           <CheckCircle size={14} />
           Submitted
         </div>
@@ -97,20 +107,34 @@ function TaskCard({
           <button
             onClick={onBegin}
             disabled={disabled}
-            className="w-full py-2.5 text-sm text-white rounded transition-colors disabled:cursor-not-allowed cursor-pointer"
-            style={{ backgroundColor: disabled ? '#1D202A' : '#7C6AEF' }}
-            title={disabled ? disabledReason : undefined}
+            className="w-full py-2.5 text-sm font-medium text-white rounded-md disabled:cursor-not-allowed cursor-pointer"
+            style={{
+              backgroundColor: disabled ? 'var(--bg-elevated)' : 'var(--accent)',
+              color: disabled ? 'var(--text-disabled)' : '#fff',
+            }}
+            title={disabled ? disabledReason : 'Start this section'}
             onMouseEnter={e => {
-              if (!disabled) (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5';
+              if (!disabled) {
+                e.currentTarget.style.backgroundColor = 'var(--accent-hover)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }
             }}
             onMouseLeave={e => {
-              if (!disabled) (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF';
+              if (!disabled) {
+                e.currentTarget.style.backgroundColor = 'var(--accent)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }
             }}
+            aria-describedby={disabled ? `disabled-${title}` : undefined}
           >
             Begin
           </button>
           {disabled && disabledReason && (
-            <div className="mt-2 flex items-start gap-1.5 text-xs" style={{ color: '#EF6B6B' }}>
+            <div
+              id={`disabled-${title}`}
+              className="mt-2 flex items-start gap-1.5 text-xs"
+              style={{ color: 'var(--error)' }}
+            >
               <AlertCircle size={12} className="flex-shrink-0 mt-0.5" />
               {disabledReason}
             </div>
@@ -135,13 +159,13 @@ export default function AssessmentLobby() {
       <div className="mb-8">
         <h1
           className="mb-1"
-          style={{ fontSize: '1.5rem', fontWeight: 600, color: '#E2E4EB' }}
+          style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}
         >
           Welcome back, {firstName}
         </h1>
-        <p className="text-sm" style={{ color: '#7E8494' }}>
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Applied for:{' '}
-          <span className="font-medium" style={{ color: '#E2E4EB' }}>
+          <span className="font-medium" style={{ color: 'var(--text-primary)' }}>
             Senior Frontend Engineer
           </span>
         </p>
@@ -149,25 +173,32 @@ export default function AssessmentLobby() {
 
       {/* Hardware check */}
       <div
-        className="rounded-lg p-5 border mb-8"
-        style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: '#171921' }}
+        className="rounded-lg p-5 mb-8"
+        style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-card)', backgroundColor: 'var(--bg-surface)' }}
       >
         <div className="flex items-center justify-between mb-3">
-          <h2 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <h2 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             System Check
           </h2>
           <button
             onClick={() => setMicAvailable(v => !v)}
-            className="text-xs underline cursor-pointer transition-colors"
-            style={{ color: '#7E8494' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+            className="text-xs cursor-pointer rounded-md px-2 py-1"
+            style={{ color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'var(--accent)';
+              e.currentTarget.style.borderColor = 'var(--accent)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'var(--text-secondary)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+            }}
+            title="Demo only — toggle simulated microphone state"
           >
             Toggle mic (demo)
           </button>
         </div>
         <div className="space-y-2">
-          <HardwareStatus icon={Mic} label="Microphone" ok={micAvailable} />
+          <HardwareStatus icon={Mic} label="Microphone" ok={micAvailable} helpUrl="chrome://settings/content/microphone" />
           <HardwareStatus icon={Globe} label="Browser Compatibility" ok={true} />
           <HardwareStatus icon={Camera} label="Camera" ok={true} />
         </div>
@@ -202,10 +233,14 @@ export default function AssessmentLobby() {
 
       {/* Timeline note */}
       <div
-        className="flex items-start gap-3 px-4 py-3.5 rounded-lg border text-sm"
-        style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921', color: '#7E8494' }}
+        className="flex items-start gap-3 px-4 py-3.5 rounded-lg text-sm"
+        style={{
+          border: '1px solid var(--border)',
+          backgroundColor: 'var(--accent-subtle)',
+          color: 'var(--text-secondary)',
+        }}
       >
-        <AlertCircle size={15} className="flex-shrink-0 mt-0.5" style={{ color: '#7C6AEF' }} />
+        <AlertCircle size={15} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--accent)' }} />
         Your results will be reviewed by the recruiter within 48 hours. You'll receive an email
         notification once a decision has been made.
       </div>

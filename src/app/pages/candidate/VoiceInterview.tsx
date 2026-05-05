@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { Mic, Loader2, HelpCircle, X } from 'lucide-react';
+import { Mic, Loader2, HelpCircle, ExternalLink } from 'lucide-react';
 import { useCandidateContext } from '../../context/CandidateContext';
+import BackButton from '../../components/common/BackButton';
+import { toast } from 'sonner';
+import {
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+} from '../../components/ui/dialog';
 
 const questions = [
   'Tell me about yourself and your background in software engineering.',
@@ -20,7 +25,7 @@ const liveResponses = [
   'The most challenging project was at Stripe, where we had to redesign our dashboard for two million merchants...',
   'I think code reviews should be collaborative and constructive. I always focus on the why behind each suggestion...',
   'There was a time we debated between REST and GraphQL — I made my case clearly and we reached a compromise...',
-  'I follow key engineering blogs, attend local meetups, and I try to build a small project with any new framework...',
+  'I follow key engineering blogs, attend local meetups, and try to build a small project with any new framework...',
   'At Airbnb, we had a two-week sprint to ship a redesign. I prioritized ruthlessly and delegated effectively...',
   'I want to grow into a principal engineer role, leading architecture decisions. This position gives me that path...',
 ];
@@ -40,7 +45,6 @@ export default function VoiceInterview() {
     if (state === 'idle') {
       setState('recording');
       setTranscript('');
-      // Simulate live transcription
       let idx = 0;
       const response = liveResponses[questionIndex] + ' ';
       const timer = setInterval(() => {
@@ -52,7 +56,7 @@ export default function VoiceInterview() {
       setState('processing');
       processingTimer.current = setTimeout(() => {
         setState('done');
-      }, 1800);
+      }, 1500);
     }
   };
 
@@ -63,8 +67,8 @@ export default function VoiceInterview() {
       setTranscript('');
       setTextInput('');
     } else {
-      // Completed all questions
       setVoiceStatus('completed');
+      toast.success('Voice interview completed');
       navigate('/candidate');
     }
   };
@@ -82,51 +86,60 @@ export default function VoiceInterview() {
   }, []);
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ backgroundColor: '#171921' }}
-    >
-      {/* Top bar */}
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-base)' }}>
+      <div className="px-4 sm:px-8 pt-4">
+        <BackButton to="/candidate" label="Back to Dashboard" />
+      </div>
+
       <div
-        className="flex items-center justify-between px-4 sm:px-8 py-3 border-b"
-        style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+        className="flex items-center justify-between px-4 sm:px-8 py-3 mt-3"
+        style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
       >
         <div
-          className="text-sm font-medium px-3 py-1 rounded"
-          style={{ backgroundColor: '#1D202A', color: '#7C6AEF' }}
+          className="text-sm font-medium px-3 py-1 rounded-md"
+          style={{ backgroundColor: 'var(--accent-subtle)', color: 'var(--accent)' }}
         >
           Question {questionIndex + 1} of {questions.length}
         </div>
-        <div className="flex gap-1">
+        <div className="hidden sm:flex gap-1">
           {questions.map((_, i) => (
             <div
               key={i}
-              className="w-2 h-2 rounded-full"
+              className="rounded-full transition-all"
               style={{
+                width: i === questionIndex ? 24 : 8,
+                height: 8,
                 backgroundColor:
-                  i < questionIndex ? '#3ECF8E' : i === questionIndex ? '#7C6AEF' : '#1D202A',
+                  i < questionIndex ? 'var(--success)' :
+                  i === questionIndex ? 'var(--accent)' :
+                  'var(--bg-elevated)',
               }}
+              aria-label={`Question ${i + 1}`}
             />
           ))}
         </div>
         <button
           onClick={() => setShowHelpModal(true)}
-          className="flex items-center gap-1.5 text-sm transition-colors cursor-pointer"
-          style={{ color: '#7E8494' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+          className="flex items-center gap-1.5 text-sm cursor-pointer rounded-md px-2 py-1"
+          style={{ color: 'var(--text-secondary)' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--accent)';
+            e.currentTarget.style.backgroundColor = 'var(--accent-subtle)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--text-secondary)';
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
         >
-          <HelpCircle size={14} />
+          <HelpCircle size={15} />
           Having issues?
         </button>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-12">
-        {/* AI Avatar */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-8">
         <div
-          className="w-24 h-24 rounded-full flex items-center justify-center mb-8"
-          style={{ backgroundColor: '#E2E4EB' }}
+          className="w-24 h-24 rounded-full flex items-center justify-center mb-7"
+          style={{ backgroundColor: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
         >
           {state === 'recording' ? (
             <div className="flex items-end gap-0.5">
@@ -136,89 +149,101 @@ export default function VoiceInterview() {
                   className="w-1.5 rounded-full"
                   style={{
                     height: `${h}px`,
-                    backgroundColor: '#EF6B6B',
-                    animation: `pulse 0.${i + 4}s ease-in-out infinite alternate`,
+                    backgroundColor: 'var(--error)',
+                    animation: `ra-bar 0.${i + 4}s ease-in-out infinite alternate`,
                   }}
                 />
               ))}
             </div>
           ) : (
-            <Mic size={32} style={{ color: '#9585F5' }} />
+            <Mic size={32} style={{ color: 'var(--accent)' }} />
           )}
         </div>
 
-        {/* Question card */}
         <div
-          className="w-full max-w-2xl rounded-lg p-6 border mb-8"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+          className="w-full max-w-2xl rounded-lg p-6 mb-6"
+          style={{
+            border: '1px solid var(--border)',
+            backgroundColor: 'var(--bg-surface)',
+            boxShadow: 'var(--shadow-card)',
+          }}
         >
-          <p className="text-xs mb-2 uppercase font-medium" style={{ color: '#7E8494', opacity: 0.6 }}>Current Question</p>
-          <p style={{ fontSize: '1.0625rem', color: '#E2E4EB', lineHeight: 1.6 }}>
+          <p className="text-xs mb-2 uppercase font-medium tracking-wide" style={{ color: 'var(--text-secondary)' }}>
+            Current Question
+          </p>
+          <p style={{ fontSize: '1.0625rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
             {questions[questionIndex]}
           </p>
         </div>
 
-        {/* Transcript or text input */}
         {useTextMode ? (
-          <div className="w-full max-w-2xl mb-8">
+          <div className="w-full max-w-2xl mb-6">
             <textarea
               value={textInput}
               onChange={e => setTextInput(e.target.value)}
-              placeholder="Type your response here…"
+              placeholder="Type your response here..."
               rows={4}
-              className="w-full px-4 py-3 text-sm rounded-lg border outline-none resize-none"
-              style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#E2E4EB' }}
-              onFocus={e => { e.target.style.borderColor = '#7C6AEF'; }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.06)'; }}
+              className="w-full px-4 py-3 text-sm rounded-lg outline-none resize-none"
+              style={{
+                border: '1px solid var(--border-input)',
+                backgroundColor: 'var(--bg-input)',
+                color: 'var(--text-primary)',
+              }}
+              onFocus={e => {
+                e.target.style.borderColor = 'var(--border-focus)';
+                e.target.style.boxShadow = '0 0 0 3px var(--accent-subtle)';
+              }}
+              onBlur={e => {
+                e.target.style.borderColor = 'var(--border-input)';
+                e.target.style.boxShadow = 'none';
+              }}
+              aria-label="Text response"
             />
             <button
               onClick={handleTextSubmit}
               disabled={!textInput.trim()}
-              className="mt-2 px-4 py-2 text-sm text-white rounded disabled:opacity-50 cursor-pointer"
-              style={{ backgroundColor: '#7C6AEF' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+              className="mt-2 px-4 py-2 text-sm text-white rounded-md disabled:opacity-50 cursor-pointer"
+              style={{ backgroundColor: 'var(--accent)' }}
+              onMouseEnter={e => { if (textInput.trim()) e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
+              onMouseLeave={e => { if (textInput.trim()) e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
             >
               Submit Response
             </button>
           </div>
-        ) : (
-          transcript && (
-            <div
-              className="w-full max-w-2xl rounded-lg p-4 border mb-8 text-sm leading-relaxed"
-              style={{
-                borderColor: 'rgba(255,255,255,0.06)',
-                backgroundColor: '#1D202A',
-                color: '#E2E4EB',
-                minHeight: 72,
-              }}
-            >
-              {transcript}
-              {state === 'recording' && (
-                <span
-                  className="inline-block w-0.5 h-4 ml-0.5 align-text-bottom"
-                  style={{ backgroundColor: '#7C6AEF', animation: 'blink 1s step-end infinite' }}
-                />
-              )}
-            </div>
-          )
-        )}
+        ) : transcript ? (
+          <div
+            className="w-full max-w-2xl rounded-lg p-4 mb-6 text-sm leading-relaxed"
+            style={{
+              border: '1px solid var(--border)',
+              backgroundColor: 'var(--bg-elevated)',
+              color: 'var(--text-primary)',
+              minHeight: 72,
+            }}
+          >
+            {transcript}
+            {state === 'recording' && (
+              <span
+                className="inline-block w-0.5 h-4 ml-0.5 align-text-bottom"
+                style={{ backgroundColor: 'var(--accent)', animation: 'ra-blink 1s step-end infinite' }}
+              />
+            )}
+          </div>
+        ) : null}
 
-        {/* Push to talk button */}
         {!useTextMode && (
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-3">
             {state === 'processing' ? (
               <div className="flex flex-col items-center gap-2">
-                <Loader2 size={28} className="animate-spin" style={{ color: '#7C6AEF' }} />
-                <span className="text-sm" style={{ color: '#7E8494' }}>Processing response…</span>
+                <Loader2 size={28} className="animate-spin" style={{ color: 'var(--accent)' }} />
+                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Processing response...</span>
               </div>
             ) : state === 'done' ? (
               <button
                 onClick={handleNext}
-                className="px-8 py-3 text-white rounded text-sm cursor-pointer transition-colors"
-                style={{ backgroundColor: '#3ECF8E' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = '0.88'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
+                className="px-8 py-3 text-white rounded-md text-sm font-medium cursor-pointer"
+                style={{ backgroundColor: 'var(--success)' }}
+                onMouseEnter={e => { e.currentTarget.style.opacity = '0.92'; }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}
               >
                 {questionIndex < questions.length - 1 ? 'Next Question →' : 'Complete Interview'}
               </button>
@@ -226,71 +251,92 @@ export default function VoiceInterview() {
               <button
                 onMouseDown={handlePushToTalk}
                 onMouseUp={state === 'recording' ? handlePushToTalk : undefined}
-                className="w-40 py-3.5 text-white rounded text-sm font-medium transition-colors cursor-pointer"
+                onTouchStart={handlePushToTalk}
+                onTouchEnd={state === 'recording' ? handlePushToTalk : undefined}
+                className="min-w-44 py-3.5 px-6 text-white rounded-md text-sm font-medium cursor-pointer"
                 style={{
-                  backgroundColor: state === 'recording' ? '#EF6B6B' : '#E2E4EB',
+                  backgroundColor: state === 'recording' ? 'var(--error)' : 'var(--accent)',
+                  minHeight: 44,
                 }}
+                onMouseEnter={e => { if (state === 'idle') e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
+                onMouseLeave={e => { if (state === 'idle') e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
+                aria-pressed={state === 'recording'}
               >
-                {state === 'recording' ? 'Recording… Release' : '● Push to Talk'}
+                {state === 'recording' ? 'Recording... Release' : '● Push to Talk'}
               </button>
             )}
             {state === 'idle' && (
-              <p className="text-xs" style={{ color: '#7E8494', opacity: 0.6 }}>Hold the button while speaking, release to submit.</p>
+              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                Hold the button while speaking, release to submit.
+              </p>
             )}
           </div>
         )}
       </div>
 
-      {/* Help modal */}
-      {showHelpModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}>
+      <Dialog open={showHelpModal} onOpenChange={setShowHelpModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Microphone not working?</DialogTitle>
+            <DialogDescription>
+              If your microphone isn't accessible, switch to text-based responses for this
+              interview. Your typed answers will be evaluated the same way.
+            </DialogDescription>
+          </DialogHeader>
           <div
-            className="rounded-lg p-6 w-96 border"
-            style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)' }}
+            className="rounded-md p-3 text-sm"
+            style={{
+              backgroundColor: 'var(--error-bg)',
+              border: '1px solid var(--error-border)',
+              color: 'var(--text-primary)',
+            }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#E2E4EB' }}>
-                Having issues with your microphone?
-              </h3>
-              <button onClick={() => setShowHelpModal(false)} className="cursor-pointer">
-                <X size={16} style={{ color: '#7E8494' }} />
-              </button>
-            </div>
-            <p className="text-sm mb-4 leading-relaxed" style={{ color: '#7E8494' }}>
-              If your microphone isn't working, you can switch to text-based responses for this
-              interview. Your typed responses will be evaluated by AI in the same way.
+            <p className="font-medium mb-1" style={{ color: 'var(--error)' }}>Quick fix</p>
+            <p style={{ color: 'var(--text-secondary)' }}>
+              Click the lock icon in your browser's address bar and ensure microphone access
+              is allowed for this site.{' '}
+              <a
+                href="chrome://settings/content/microphone"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1"
+                style={{ color: 'var(--accent)' }}
+              >
+                Open browser settings <ExternalLink size={12} />
+              </a>
             </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setUseTextMode(true);
-                  setState('idle');
-                  setShowHelpModal(false);
-                }}
-                className="flex-1 py-2.5 text-sm text-white rounded cursor-pointer transition-colors"
-                style={{ backgroundColor: '#7C6AEF' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
-              >
-                Switch to Text Responses
-              </button>
-              <button
-                onClick={() => setShowHelpModal(false)}
-                className="px-4 py-2.5 text-sm border rounded cursor-pointer transition-colors"
-                style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1D202A'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
-              >
-                Try Again
-              </button>
-            </div>
           </div>
-        </div>
-      )}
+          <DialogFooter>
+            <button
+              onClick={() => setShowHelpModal(false)}
+              className="px-4 py-2 text-sm rounded-md cursor-pointer"
+              style={{
+                border: '1px solid var(--border)',
+                color: 'var(--text-secondary)',
+                backgroundColor: 'transparent',
+              }}
+            >
+              Try Again
+            </button>
+            <button
+              onClick={() => {
+                setUseTextMode(true);
+                setState('idle');
+                setShowHelpModal(false);
+                toast.info('Switched to text responses');
+              }}
+              className="px-4 py-2 text-sm text-white rounded-md cursor-pointer font-medium"
+              style={{ backgroundColor: 'var(--accent)' }}
+            >
+              Switch to Text Responses
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <style>{`
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        @keyframes pulse { from { transform: scaleY(0.5); } to { transform: scaleY(1.2); } }
+        @keyframes ra-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes ra-bar { from { transform: scaleY(0.5); } to { transform: scaleY(1.2); } }
       `}</style>
     </div>
   );

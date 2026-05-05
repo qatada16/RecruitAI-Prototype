@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { candidates, interviewTranscript } from '../../data/mockData';
@@ -24,10 +24,10 @@ function MiniBarChart({ data, color }: { data: { q: string; score: number }[]; c
     <ResponsiveContainer width="100%" height={90}>
       <BarChart data={data} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-        <XAxis dataKey="q" tick={{ fontSize: 11, fill: '#7E8494' }} axisLine={false} tickLine={false} />
-        <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: '#7E8494' }} axisLine={false} tickLine={false} />
+        <XAxis dataKey="q" tick={{ fontSize: 11, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
+        <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
         <Tooltip
-          contentStyle={{ backgroundColor: '#171921', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 4, fontSize: 12, color: '#E2E4EB' }}
+          contentStyle={{ backgroundColor: 'var(--bg-surface)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 4, fontSize: 12, color: 'var(--text-primary)' }}
           cursor={{ fill: 'rgba(124,106,239,0.06)' }}
         />
         <Bar dataKey="score" fill={color} radius={[2, 2, 0, 0]} />
@@ -48,52 +48,52 @@ export default function InterviewAnalytics() {
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
-        style={{ color: '#7E8494' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+        style={{ color: 'var(--text-secondary)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
         Back to Profile
       </button>
 
       <div className="mb-5">
-        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Interview Analytics
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>
-          {candidate.name} · {candidate.role} · Completed Feb 22, 2026
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+          {candidate.name} Â· {candidate.role} Â· Completed Feb 22, 2026
         </p>
       </div>
 
       {/* Audio Player */}
       <div
         className="rounded-lg p-5 border mb-5"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <button
               className="transition-colors cursor-pointer"
-              style={{ color: '#7E8494' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
             >
               <SkipBack size={16} />
             </button>
             <button
               onClick={() => setPlaying(p => !p)}
               className="w-9 h-9 rounded-full flex items-center justify-center text-white transition-colors cursor-pointer"
-              style={{ backgroundColor: '#7C6AEF' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+              style={{ backgroundColor: 'var(--accent)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
             >
               {playing ? <Pause size={16} /> : <Play size={15} />}
             </button>
             <button
               className="transition-colors cursor-pointer"
-              style={{ color: '#7E8494' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
             >
               <SkipForward size={16} />
             </button>
@@ -101,7 +101,7 @@ export default function InterviewAnalytics() {
 
           {/* Waveform */}
           <div className="flex-1 flex items-center gap-2">
-            <span className="text-xs w-10" style={{ color: '#7E8494' }}>08:14</span>
+            <span className="text-xs w-10" style={{ color: 'var(--text-secondary)' }}>08:14</span>
             <div className="flex-1 relative h-10 flex items-center">
               <div className="w-full flex items-center gap-px">
                 {Array.from({ length: 80 }, (_, i) => {
@@ -113,7 +113,7 @@ export default function InterviewAnalytics() {
                       className="flex-1 rounded-sm"
                       style={{
                         height: `${height}px`,
-                        backgroundColor: isPlayed ? '#7C6AEF' : '#1D202A',
+                        backgroundColor: isPlayed ? 'var(--accent)' : 'var(--bg-elevated)',
                       }}
                     />
                   );
@@ -128,7 +128,7 @@ export default function InterviewAnalytics() {
                 className="absolute inset-0 w-full opacity-0 cursor-pointer"
               />
             </div>
-            <span className="text-xs w-10 text-right" style={{ color: '#7E8494' }}>22:05</span>
+            <span className="text-xs w-10 text-right" style={{ color: 'var(--text-secondary)' }}>22:05</span>
           </div>
         </div>
       </div>
@@ -138,10 +138,10 @@ export default function InterviewAnalytics() {
         {/* Transcript */}
         <div
           className="flex-1 rounded-lg border overflow-hidden"
-          style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
         >
-          <div className="px-5 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <div className="px-5 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               Full Transcript
             </h3>
           </div>
@@ -151,7 +151,7 @@ export default function InterviewAnalytics() {
                 key={line.id}
                 className="px-5 py-3 border-b"
                 style={{
-                  borderColor: 'rgba(255,255,255,0.06)',
+                  borderColor: 'var(--border)',
                   borderLeft: line.quality === 'high'
                     ? '3px solid #3ECF8E'
                     : line.quality === 'medium'
@@ -161,11 +161,11 @@ export default function InterviewAnalytics() {
               >
                 <p
                   className="text-xs mb-1 uppercase font-medium"
-                  style={{ color: line.speaker === 'AI' ? '#7C6AEF' : '#7E8494' }}
+                  style={{ color: line.speaker === 'AI' ? 'var(--accent)' : 'var(--text-secondary)' }}
                 >
                   {line.speaker}
                 </p>
-                <p className="text-sm leading-relaxed" style={{ color: '#E2E4EB' }}>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)' }}>
                   {line.text}
                 </p>
               </div>
@@ -177,16 +177,16 @@ export default function InterviewAnalytics() {
         <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
           {/* Charts */}
           {[
-            { label: 'Clarity Score by Question', data: clarityData, color: '#7C6AEF' },
-            { label: 'Relevance Score by Question', data: relevanceData, color: '#E2E4EB' },
-            { label: 'Confidence Score by Question', data: confidenceData, color: '#9585F5' },
+            { label: 'Clarity Score by Question', data: clarityData, color: 'var(--accent)' },
+            { label: 'Relevance Score by Question', data: relevanceData, color: 'var(--text-primary)' },
+            { label: 'Confidence Score by Question', data: confidenceData, color: 'var(--accent-hover)' },
           ].map(({ label, data, color }) => (
             <div
               key={label}
               className="rounded-lg p-4 border"
-              style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
             >
-              <p className="text-xs font-medium mb-2" style={{ color: '#7E8494' }}>
+              <p className="text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>
                 {label}
               </p>
               <MiniBarChart data={data} color={color} />
@@ -196,17 +196,17 @@ export default function InterviewAnalytics() {
           {/* AI Insight */}
           <div
             className="rounded-lg p-4 border"
-            style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #7C6AEF', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', borderLeft: '3px solid var(--accent)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
           >
-            <p className="text-xs font-semibold mb-2" style={{ color: '#7C6AEF' }}>
+            <p className="text-xs font-semibold mb-2" style={{ color: 'var(--accent)' }}>
               AI INSIGHT SUMMARY
             </p>
-            <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               {candidate.name} demonstrated above-average communication clarity, scoring
               consistently high on technical explanation questions. Minor dips in confidence
               were observed on behavioral scenarios. The candidate's structured storytelling
               and use of concrete metrics reflects strong professional communication. Overall
-              communication score: <strong style={{ color: '#3ECF8E' }}>{candidate.communicationScore}/100</strong>.
+              communication score: <strong style={{ color: 'var(--success)' }}>{candidate.communicationScore}/100</strong>.
             </p>
           </div>
         </div>

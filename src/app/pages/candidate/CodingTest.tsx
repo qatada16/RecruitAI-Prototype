@@ -1,31 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { Play, CheckCircle, XCircle, ChevronDown } from 'lucide-react';
+import { Play, CheckCircle, XCircle, ChevronDown, RotateCcw, Loader2 } from 'lucide-react';
 import { useCandidateContext } from '../../context/CandidateContext';
+import BackButton from '../../components/common/BackButton';
+import { useIsMobile } from '../../components/common/useMediaQuery';
+import { toast } from 'sonner';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '../../components/ui/alert-dialog';
 
 const problem = {
   title: 'Two Sum',
   difficulty: 'Easy',
-  description: `Given an array of integers \`nums\` and an integer \`target\`, return **indices** of the two numbers such that they add up to \`target\`.
+  description: `Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-You can return the answer in any order.`,
+You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.`,
   constraints: [
-    '2 ≤ nums.length ≤ 10⁴',
-    '-10⁹ ≤ nums[i] ≤ 10⁹',
-    '-10⁹ ≤ target ≤ 10⁹',
+    '2 ≤ nums.length ≤ 10^4',
+    '-10^9 ≤ nums[i] ≤ 10^9',
+    '-10^9 ≤ target ≤ 10^9',
     'Only one valid answer exists.',
   ],
   examples: [
     { input: 'nums = [2,7,11,15], target = 9', output: '[0,1]', explanation: 'nums[0] + nums[1] == 9' },
-    { input: 'nums = [3,2,4], target = 6', output: '[1,2]', explanation: 'nums[1] + nums[2] == 6' },
+    { input: 'nums = [3,2,4], target = 6',     output: '[1,2]', explanation: 'nums[1] + nums[2] == 6' },
   ],
 };
 
 const starterCode: Record<string, string> = {
   Python: `def twoSum(nums: list[int], target: int) -> list[int]:
-    # Write your solution here
     seen = {}
     for i, num in enumerate(nums):
         complement = target - num
@@ -33,12 +37,7 @@ const starterCode: Record<string, string> = {
             return [seen[complement], i]
         seen[num] = i
     return []`,
-  JavaScript: `/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-var twoSum = function(nums, target) {
+  JavaScript: `var twoSum = function(nums, target) {
     const seen = {};
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i];
@@ -64,15 +63,15 @@ var twoSum = function(nums, target) {
 
 const testCases = [
   { input: '[2,7,11,15], target=9', expected: '[0,1]', actual: '[0,1]', passed: true },
-  { input: '[3,2,4], target=6', expected: '[1,2]', actual: '[1,2]', passed: true },
-  { input: '[3,3], target=6', expected: '[0,1]', actual: '[0,1]', passed: true },
-  { input: '[1,5,3,7], target=10', expected: '[1,3]', actual: '[1,3]', passed: true },
+  { input: '[3,2,4], target=6',     expected: '[1,2]', actual: '[1,2]', passed: true },
+  { input: '[3,3], target=6',       expected: '[0,1]', actual: '[0,1]', passed: true },
+  { input: '[1,5,3,7], target=10',  expected: '[1,3]', actual: '[1,3]', passed: true },
 ];
 
-const difficultyConfig: Record<string, { color: string }> = {
-  Easy: { color: '#3ECF8E' },
-  Medium: { color: '#E5A93B' },
-  Hard: { color: '#EF6B6B' },
+const difficultyConfig: Record<string, { color: string; bg: string }> = {
+  Easy:   { color: 'var(--success)', bg: 'var(--success-bg)' },
+  Medium: { color: 'var(--warning)', bg: 'var(--warning-bg)' },
+  Hard:   { color: 'var(--error)',   bg: 'var(--error-bg)' },
 };
 
 function formatTime(seconds: number) {
@@ -84,12 +83,18 @@ function formatTime(seconds: number) {
 export default function CodingTest() {
   const navigate = useNavigate();
   const { setCodingStatus } = useCandidateContext();
+  const isMobile = useIsMobile();
+
   const [language, setLanguage] = useState('Python');
   const [code, setCode] = useState(starterCode['Python']);
   const [consoleOutput, setConsoleOutput] = useState('');
   const [ran, setRan] = useState(false);
+  const [running, setRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(45 * 60);
   const [submitting, setSubmitting] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [problemOpen, setProblemOpen] = useState(true);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const t = setInterval(() => setTimeLeft(s => Math.max(0, s - 1)), 1000);
@@ -97,107 +102,182 @@ export default function CodingTest() {
   }, []);
 
   const handleRun = () => {
-    setConsoleOutput('Running test cases…\n');
+    if (running) return;
+    setRunning(true);
+    setConsoleOutput('Running test cases...\n');
     setTimeout(() => {
-      setConsoleOutput(`Running test cases…
+      setConsoleOutput(`Running test cases...
 
-[PASS] Test 1: twoSum([2,7,11,15], 9) → [0, 1]  ✓
-[PASS] Test 2: twoSum([3,2,4], 6)     → [1, 2]  ✓
-[PASS] Test 3: twoSum([3,3], 6)       → [0, 1]  ✓
-[PASS] Test 4: twoSum([1,5,3,7], 10)  → [1, 3]  ✓
+[PASS] Test 1: twoSum([2,7,11,15], 9) -> [0, 1]  ✓
+[PASS] Test 2: twoSum([3,2,4], 6)     -> [1, 2]  ✓
+[PASS] Test 3: twoSum([3,3], 6)       -> [0, 1]  ✓
+[PASS] Test 4: twoSum([1,5,3,7], 10)  -> [1, 3]  ✓
 
 All 4/4 test cases passed.
 Runtime: 0.003s  |  Memory: 14.2 MB`);
       setRan(true);
-    }, 1200);
+      setRunning(false);
+      toast.success('All 4 test cases passed');
+    }, 900);
   };
 
   const handleSubmit = () => {
+    if (!ran || submitting) return;
     setSubmitting(true);
+    toast.info('Submitting solution...');
     setTimeout(() => {
       setCodingStatus('completed');
+      toast.success('Solution submitted');
       navigate('/candidate');
-    }, 2000);
+    }, 1400);
   };
 
-  const isRed = timeLeft < 5 * 60;
+  const handleReset = () => {
+    setCode(starterCode[language]);
+    setConsoleOutput('');
+    setRan(false);
+    setResetOpen(false);
+    toast.info('Code reset to default');
+  };
+
+  // Keyboard shortcut: Ctrl/Cmd+Enter to run
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        handleRun();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [running]);
+
+  const isRedTime = timeLeft < 5 * 60;
+  const submitDisabled = !ran || submitting;
 
   return (
-    <div className="flex flex-col overflow-hidden" style={{ backgroundColor: '#1D202A', minHeight: 'calc(100vh - 3.5rem)' }}>
-      {/* Top bar */}
+    <div className="flex flex-col" style={{ backgroundColor: 'var(--bg-base)', minHeight: 'calc(100vh - 6rem)' }}>
+      {/* Header strip with Back, title, timer, reset */}
       <div
-        className="border-b flex items-center justify-between px-3 sm:px-5 py-2.5 flex-shrink-0 gap-2"
-        style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
+        className="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-5 py-3 flex-shrink-0"
+        style={{ borderBottom: '1px solid var(--border)', backgroundColor: 'var(--bg-surface)' }}
       >
-        <span className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
-          Two Sum
-        </span>
-        <span
-          className="text-sm font-semibold px-3 py-1 rounded"
-          style={{
-            color: isRed ? '#EF6B6B' : '#E2E4EB',
-            backgroundColor: isRed ? 'rgba(239,107,107,0.08)' : '#1D202A',
-          }}
-        >
-          {formatTime(timeLeft)}
-        </span>
-        <span className="text-xs sm:text-sm hidden sm:inline" style={{ color: '#7E8494' }}>Senior Frontend Engineer Assessment</span>
+        <div className="flex items-center gap-2 min-w-0">
+          <BackButton to="/candidate" label="Dashboard" />
+          <span className="hidden sm:inline" style={{ color: 'var(--text-disabled)' }}>/</span>
+          <span className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>Coding Test · Two Sum</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className="text-sm font-semibold px-2.5 py-1 rounded-md ra-tabular"
+            style={{
+              color: isRedTime ? 'var(--error)' : 'var(--text-primary)',
+              backgroundColor: isRedTime ? 'var(--error-bg)' : 'var(--bg-elevated)',
+              border: `1px solid ${isRedTime ? 'var(--error-border)' : 'var(--border)'}`,
+            }}
+            title="Time remaining"
+          >
+            ⏱ {formatTime(timeLeft)}
+          </span>
+          <button
+            onClick={() => setResetOpen(true)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-sm rounded-md cursor-pointer"
+            style={{
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border)',
+              backgroundColor: 'transparent',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'var(--text-primary)';
+              e.currentTarget.style.borderColor = 'var(--border-hover)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'var(--text-secondary)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+            }}
+            title="Reset to default code"
+            aria-label="Reset to default code"
+          >
+            <RotateCcw size={13} />
+            <span className="hidden sm:inline">Reset</span>
+          </button>
+        </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row flex-1 overflow-auto lg:overflow-hidden">
-        {/* Left panel – Problem */}
+      <div className="flex flex-col lg:flex-row flex-1">
+        {/* Problem panel */}
         <div
-          className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r overflow-y-auto flex-shrink-0"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
+          className="w-full lg:w-80 lg:flex-shrink-0 lg:overflow-y-auto"
+          style={{
+            backgroundColor: 'var(--bg-surface)',
+            borderRight: isMobile ? 'none' : '1px solid var(--border)',
+            borderBottom: isMobile ? '1px solid var(--border)' : 'none',
+            maxHeight: isMobile ? (problemOpen ? '60vh' : '50px') : 'none',
+            transition: 'max-height 0.25s ease',
+            overflow: 'hidden',
+          }}
         >
-          <div className="p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <button
+            onClick={() => setProblemOpen(o => !o)}
+            className="lg:hidden w-full flex items-center justify-between px-4 py-3 text-sm font-medium cursor-pointer"
+            style={{ color: 'var(--text-primary)' }}
+            aria-expanded={problemOpen}
+          >
+            <span>Problem · {problem.title}</span>
+            <ChevronDown size={16} style={{ transform: problemOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+          </button>
+
+          <div className="p-5 lg:block" style={{ display: !isMobile || problemOpen ? 'block' : 'none' }}>
+            <div className="flex items-center gap-2 mb-3 flex-wrap">
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
                 {problem.title}
               </h2>
               <span
-                className="text-xs font-medium"
-                style={{ color: difficultyConfig[problem.difficulty].color }}
+                className="text-xs font-medium px-2 py-0.5 rounded-full"
+                style={{
+                  color: difficultyConfig[problem.difficulty].color,
+                  backgroundColor: difficultyConfig[problem.difficulty].bg,
+                }}
               >
                 {problem.difficulty}
               </span>
             </div>
-            <p className="text-sm leading-relaxed mb-4 whitespace-pre-wrap" style={{ color: '#7E8494' }}>
+            <p className="text-sm leading-relaxed mb-4 whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>
               {problem.description}
             </p>
             <div className="mb-4">
-              <p className="text-xs font-semibold mb-2 uppercase" style={{ color: '#7E8494', opacity: 0.5 }}>Constraints</p>
+              <p className="text-xs font-semibold mb-2 uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>Constraints</p>
               <ul className="space-y-1">
                 {problem.constraints.map(c => (
-                  <li key={c} className="text-xs flex gap-1.5" style={{ color: '#7E8494' }}>
-                    <span style={{ color: '#7C6AEF' }}>•</span>{c}
+                  <li key={c} className="text-xs flex gap-1.5" style={{ color: 'var(--text-secondary)' }}>
+                    <span style={{ color: 'var(--accent)' }}>•</span>{c}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="text-xs font-semibold mb-2 uppercase" style={{ color: '#7E8494', opacity: 0.5 }}>Examples</p>
+              <p className="text-xs font-semibold mb-2 uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>Examples</p>
               {problem.examples.map((ex, i) => (
                 <div
                   key={i}
-                  className="mb-3 p-3 rounded border text-xs"
-                  style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A', fontFamily: 'monospace' }}
+                  className="mb-3 p-3 rounded-md text-xs font-mono"
+                  style={{ border: '1px solid var(--border)', backgroundColor: 'var(--bg-elevated)' }}
                 >
-                  <p className="mb-1" style={{ color: '#7E8494' }}>Input: {ex.input}</p>
-                  <p className="mb-1" style={{ color: '#7E8494' }}>Output: {ex.output}</p>
-                  <p style={{ color: '#7E8494', opacity: 0.6 }}>{ex.explanation}</p>
+                  <p className="mb-1" style={{ color: 'var(--text-primary)' }}>Input: {ex.input}</p>
+                  <p className="mb-1" style={{ color: 'var(--text-primary)' }}>Output: {ex.output}</p>
+                  <p style={{ color: 'var(--text-secondary)' }}>{ex.explanation}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Center panel – Editor */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0" style={{ backgroundColor: '#0D1017' }}>
-          {/* Editor header */}
+        {/* Editor */}
+        <div className="flex-1 flex flex-col min-w-0" style={{ backgroundColor: 'var(--editor-bg)' }}>
           <div
-            className="flex items-center justify-between px-4 py-2 border-b"
-            style={{ borderColor: '#1A1D27' }}
+            className="flex items-center justify-between px-4 py-2"
+            style={{ borderBottom: '1px solid var(--editor-border)' }}
           >
             <div className="relative">
               <select
@@ -208,128 +288,182 @@ Runtime: 0.003s  |  Memory: 14.2 MB`);
                   setRan(false);
                   setConsoleOutput('');
                 }}
-                className="appearance-none pl-3 pr-7 py-1.5 text-sm rounded border cursor-pointer"
+                className="appearance-none pl-3 pr-7 py-1.5 text-sm rounded-md cursor-pointer font-mono"
                 style={{
-                  borderColor: '#1A1D27',
-                  backgroundColor: '#1A1D27',
-                  color: '#D4D8E4',
-                  fontFamily: 'monospace',
+                  border: '1px solid var(--editor-border)',
+                  backgroundColor: 'var(--bg-elevated)',
+                  color: 'var(--editor-text)',
                 }}
+                aria-label="Programming language"
               >
                 {['Python', 'JavaScript', 'Java'].map(l => <option key={l}>{l}</option>)}
               </select>
-              <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+              <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--text-secondary)' }} />
             </div>
             <button
               onClick={handleRun}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white rounded cursor-pointer transition-colors"
-              style={{ backgroundColor: '#3ECF8E' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = '0.88'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
+              disabled={running}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-white rounded-md cursor-pointer disabled:opacity-70"
+              style={{ backgroundColor: 'var(--success)' }}
+              onMouseEnter={e => { if (!running) e.currentTarget.style.opacity = '0.9'; }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}
+              title="Run Code (Ctrl+Enter)"
+              aria-label="Run code"
             >
-              <Play size={13} />
-              Run Code
+              {running ? <Loader2 size={13} className="animate-spin" /> : <Play size={13} />}
+              {running ? 'Running...' : 'Run Code'}
+              <span className="hidden md:inline opacity-80 text-xs ml-1">⌘↵</span>
             </button>
           </div>
 
-          {/* Code editor */}
-          <div className="flex-1 overflow-auto">
-            <div className="flex min-h-full">
-              {/* Line numbers */}
+          <div className="flex-1" style={{ minHeight: isMobile ? 320 : 'auto' }}>
+            <div className="flex h-full">
               <div
-                className="px-3 py-3 text-right select-none flex-shrink-0"
-                style={{ color: '#3D4250', backgroundColor: '#0A0D14', fontFamily: 'monospace', fontSize: '0.8125rem', minWidth: '2.5rem' }}
+                className="px-3 py-3 text-right select-none flex-shrink-0 font-mono"
+                style={{
+                  color: 'var(--editor-line-num)',
+                  backgroundColor: 'var(--editor-line-bg)',
+                  fontSize: '0.8125rem',
+                  minWidth: '2.5rem',
+                }}
               >
                 {code.split('\n').map((_, i) => (
                   <div key={i} style={{ lineHeight: '1.6' }}>{i + 1}</div>
                 ))}
               </div>
               <textarea
+                ref={textareaRef}
                 value={code}
                 onChange={e => setCode(e.target.value)}
-                className="flex-1 p-3 outline-none resize-none"
+                className="flex-1 p-3 outline-none resize-none font-mono"
                 style={{
-                  backgroundColor: '#0D1017',
-                  color: '#D4D8E4',
-                  fontFamily: 'monospace',
+                  backgroundColor: 'var(--editor-bg)',
+                  color: 'var(--editor-text)',
                   fontSize: '0.8125rem',
                   lineHeight: '1.6',
-                  caretColor: '#D4D8E4',
+                  caretColor: 'var(--accent)',
+                  minHeight: 300,
                 }}
                 spellCheck={false}
+                aria-label="Code editor"
               />
             </div>
           </div>
 
-          {/* Console */}
           <div
-            className="border-t flex-shrink-0"
-            style={{ borderColor: '#1A1D27', backgroundColor: '#080A10', height: 140 }}
+            className="flex-shrink-0"
+            style={{ borderTop: '1px solid var(--editor-border)', backgroundColor: 'var(--console-bg)', height: 150 }}
           >
             <div
-              className="px-4 py-1.5 border-b text-xs font-medium"
-              style={{ borderColor: '#1A1D27', color: '#3D4250' }}
+              className="px-4 py-1.5 text-xs font-medium font-mono"
+              style={{ borderBottom: '1px solid var(--editor-border)', color: 'var(--editor-line-num)' }}
             >
               Console Output
             </div>
             <pre
-              className="px-4 py-3 text-xs overflow-auto"
-              style={{ color: consoleOutput.includes('[PASS]') ? '#3ECF8E' : '#8A8F9E', fontFamily: 'monospace', height: 105 }}
+              className="px-4 py-3 text-xs overflow-auto font-mono"
+              style={{
+                color: consoleOutput.includes('[PASS]') ? 'var(--success)' : 'var(--console-text)',
+                height: 115,
+              }}
             >
-              {consoleOutput || 'Click "Run Code" to see output…'}
+              {consoleOutput || 'Click "Run Code" (or press Ctrl+Enter) to see output...'}
             </pre>
           </div>
         </div>
 
-        {/* Right panel – Test cases */}
+        {/* Test cases */}
         <div
-          className="w-full lg:w-56 border-t lg:border-t-0 lg:border-l flex flex-col flex-shrink-0"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#171921' }}
+          className="w-full lg:w-60 flex flex-col flex-shrink-0"
+          style={{
+            backgroundColor: 'var(--bg-surface)',
+            borderLeft: isMobile ? 'none' : '1px solid var(--border)',
+            borderTop: isMobile ? '1px solid var(--border)' : 'none',
+          }}
         >
-          <div className="px-4 py-3 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-            <p className="text-xs font-semibold uppercase" style={{ color: '#7E8494' }}>Test Cases</p>
+          <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--border)' }}>
+            <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>Test Cases</p>
           </div>
           <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2">
             {testCases.map((tc, i) => (
               <div
                 key={i}
-                className="p-2.5 rounded border text-xs"
-                style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A' }}
+                className="p-2.5 rounded-md text-xs"
+                style={{ border: '1px solid var(--border)', backgroundColor: 'var(--bg-elevated)' }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   {ran ? (
-                    tc.passed ? (
-                      <CheckCircle size={11} style={{ color: '#3ECF8E' }} />
-                    ) : (
-                      <XCircle size={11} style={{ color: '#EF6B6B' }} />
-                    )
+                    tc.passed
+                      ? <CheckCircle size={12} style={{ color: 'var(--success)' }} />
+                      : <XCircle    size={12} style={{ color: 'var(--error)' }} />
                   ) : (
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#1D202A', border: '1px solid #7E8494', opacity: 0.4 }} />
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ border: '1px solid var(--text-disabled)' }} />
                   )}
-                  <span className="font-medium" style={{ color: ran ? (tc.passed ? '#3ECF8E' : '#EF6B6B') : '#7E8494' }}>
+                  <span className="font-medium" style={{ color: ran ? (tc.passed ? 'var(--success)' : 'var(--error)') : 'var(--text-secondary)' }}>
                     Case {i + 1}
                   </span>
                 </div>
-                <p className="font-mono mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>{tc.input}</p>
-                <p style={{ color: '#7E8494', opacity: 0.7 }}>Expected: {tc.expected}</p>
-                {ran && <p style={{ color: tc.passed ? '#3ECF8E' : '#EF6B6B' }}>Got: {tc.actual}</p>}
+                <p className="font-mono mb-0.5" style={{ color: 'var(--text-secondary)' }}>{tc.input}</p>
+                <p style={{ color: 'var(--text-secondary)' }}>Expected: {tc.expected}</p>
+                {ran && <p style={{ color: tc.passed ? 'var(--success)' : 'var(--error)' }}>Got: {tc.actual}</p>}
               </div>
             ))}
           </div>
-          <div className="p-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-            <button
-              onClick={handleSubmit}
-              disabled={submitting}
-              className="w-full py-2.5 text-sm text-white rounded disabled:opacity-70 cursor-pointer transition-colors"
-              style={{ backgroundColor: '#7C6AEF' }}
-              onMouseEnter={e => { if (!submitting) (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-              onMouseLeave={e => { if (!submitting) (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
-            >
-              {submitting ? 'Submitting…' : 'Submit Solution'}
-            </button>
+          <div className="p-3" style={{ borderTop: '1px solid var(--border)' }}>
+            <div className="relative group">
+              <button
+                onClick={handleSubmit}
+                disabled={submitDisabled}
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 text-sm font-medium text-white rounded-md cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                style={{ backgroundColor: 'var(--accent)' }}
+                onMouseEnter={e => { if (!submitDisabled) e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
+                onMouseLeave={e => { if (!submitDisabled) e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
+                aria-label="Submit solution"
+                aria-describedby="submit-help"
+              >
+                {submitting && <Loader2 size={14} className="animate-spin" />}
+                {submitting ? 'Processing...' : 'Submit Solution'}
+              </button>
+              {!ran && !submitting && (
+                <div
+                  id="submit-help"
+                  className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow-elevated)',
+                    zIndex: 10,
+                  }}
+                  role="tooltip"
+                >
+                  Run your code at least once before submitting.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
+      <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Reset code to default?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will erase your current code and restore the starter template. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleReset}
+              style={{ backgroundColor: 'var(--error)', color: '#fff' }}
+            >
+              Reset code
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

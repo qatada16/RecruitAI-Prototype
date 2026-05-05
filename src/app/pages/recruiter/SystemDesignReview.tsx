@@ -1,11 +1,11 @@
-import { useParams, useNavigate } from 'react-router';
+﻿import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft } from 'lucide-react';
 import { candidates, systemDesignResponse } from '../../data/mockData';
 
 function getScoreColor(score: number) {
-  if (score >= 80) return '#3ECF8E';
-  if (score >= 65) return '#E5A93B';
-  return '#EF6B6B';
+  if (score >= 80) return 'var(--success)';
+  if (score >= 65) return 'var(--warning)';
+  return 'var(--error)';
 }
 
 function ScoreSection({
@@ -20,20 +20,20 @@ function ScoreSection({
   return (
     <div className="mb-5">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-sm font-semibold" style={{ color: '#E2E4EB' }}>
+        <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
           {title}
         </span>
         <span className="text-sm font-semibold" style={{ color: getScoreColor(score) }}>
           {score}/100
         </span>
       </div>
-      <div className="h-2 rounded-full mb-2.5" style={{ backgroundColor: '#1D202A' }}>
+      <div className="h-2 rounded-full mb-2.5" style={{ backgroundColor: 'var(--bg-elevated)' }}>
         <div
           className="h-full rounded-full"
-          style={{ width: `${score}%`, backgroundColor: '#9585F5' }}
+          style={{ width: `${score}%`, backgroundColor: 'var(--accent-hover)' }}
         />
       </div>
-      <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>{comment}</p>
+      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{comment}</p>
     </div>
   );
 }
@@ -49,20 +49,20 @@ export default function SystemDesignReview() {
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
-        style={{ color: '#7E8494' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+        style={{ color: 'var(--text-secondary)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
         Back to Profile
       </button>
 
       <div className="mb-5">
-        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           System Design Review
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>
-          {candidate.name} · Design a URL Shortener · Submitted Feb 23, 2026
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+          {candidate.name} Â· Design a URL Shortener Â· Submitted Feb 23, 2026
         </p>
       </div>
 
@@ -70,15 +70,15 @@ export default function SystemDesignReview() {
       <div
         className="rounded-lg px-5 py-4 mb-5 border"
         style={{
-          borderColor: 'rgba(255,255,255,0.06)',
-          borderLeft: '4px solid #7C6AEF',
-          backgroundColor: '#1D202A',
+          borderColor: 'var(--border)',
+          borderLeft: '4px solid var(--accent)',
+          backgroundColor: 'var(--bg-elevated)',
         }}
       >
-        <p className="text-xs font-semibold mb-1" style={{ color: '#7C6AEF' }}>
+        <p className="text-xs font-semibold mb-1" style={{ color: 'var(--accent)' }}>
           SCENARIO QUESTION
         </p>
-        <p className="text-sm leading-relaxed" style={{ color: '#E2E4EB' }}>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)' }}>
           Design a URL shortening service (similar to bit.ly) that can handle 100 million
           requests per day. Your design should cover the write path (shortening a URL),
           the read path (expanding a short URL), the data model, caching strategy, and
@@ -92,16 +92,16 @@ export default function SystemDesignReview() {
         <div className="flex-1 min-w-0">
           <div
             className="rounded-lg border overflow-hidden"
-            style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
           >
-            <div className="px-5 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+            <div className="px-5 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Candidate's Written Response
               </h3>
             </div>
             <div
               className="px-5 py-4 overflow-y-auto text-sm leading-relaxed"
-              style={{ maxHeight: 460, whiteSpace: 'pre-wrap', color: '#7E8494' }}
+              style={{ maxHeight: 460, whiteSpace: 'pre-wrap', color: 'var(--text-secondary)' }}
             >
               {systemDesignResponse}
             </div>
@@ -112,9 +112,9 @@ export default function SystemDesignReview() {
         <div className="w-full lg:w-80 flex-shrink-0 space-y-5">
           <div
             className="rounded-lg p-5 border"
-            style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
           >
-            <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+            <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               AI Feedback
             </h3>
             <ScoreSection
@@ -137,28 +137,28 @@ export default function SystemDesignReview() {
           {/* Overall verdict */}
           <div
             className="rounded-lg p-5 border"
-            style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
           >
             <div className="flex items-center justify-between mb-3">
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Overall AI Verdict
               </h3>
               <span
                 className="text-sm font-semibold px-2.5 py-1 rounded"
                 style={{
-                  backgroundColor: designScore >= 80 ? 'rgba(62,207,142,0.08)' : designScore >= 65 ? 'rgba(229,169,59,0.08)' : 'rgba(239,107,107,0.08)',
+                  backgroundColor: designScore >= 80 ? 'var(--success-bg)' : designScore >= 65 ? 'var(--warning-bg)' : 'var(--error-bg)',
                   color: getScoreColor(designScore),
                 }}
               >
                 {designScore}/100
               </span>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               {candidate.name}'s system design response demonstrates a strong command of
               distributed systems fundamentals. The solution is well-structured,
               covers all key components, and shows practical awareness of production
               concerns. Recommended for{' '}
-              <span style={{ color: designScore >= 80 ? '#3ECF8E' : '#E5A93B' }}>
+              <span style={{ color: designScore >= 80 ? 'var(--success)' : 'var(--warning)' }}>
                 {designScore >= 80 ? 'advancement to final round' : 'further technical screening'}.
               </span>
             </p>

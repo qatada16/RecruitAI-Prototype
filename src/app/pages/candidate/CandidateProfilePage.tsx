@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Briefcase, Upload, FileText, Eye, CheckCircle, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -17,66 +17,66 @@ function CVViewerModal({ name, onClose }: { name: string; onClose: () => void })
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
+      style={{ backgroundColor: 'var(--backdrop)' }}
     >
       <div
         className="rounded-xl w-full max-w-lg overflow-hidden"
-        style={{ border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 8px 32px rgba(124,106,239,0.18)', backgroundColor: '#171921' }}
+        style={{ border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 8px 32px rgba(124,106,239,0.18)', backgroundColor: 'var(--bg-surface)' }}
       >
         {/* Header */}
         <div
           className="px-6 py-4 flex items-center justify-between"
-          style={{ backgroundColor: '#0B0D13' }}
+          style={{ backgroundColor: 'var(--bg-sidebar)' }}
         >
           <div className="flex items-center gap-2">
-            <FileText size={15} style={{ color: '#E2E4EB' }} />
-            <span className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
-              My CV — {name}
+            <FileText size={15} style={{ color: 'var(--text-primary)' }} />
+            <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+              My CV â€” {name}
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors cursor-pointer text-lg leading-none"
           >
-            ×
+            Ã—
           </button>
         </div>
 
         <div className="px-8 py-6">
           {/* Mock CV content */}
-          <div className="flex items-center gap-4 mb-6 pb-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div className="flex items-center gap-4 mb-6 pb-6 border-b" style={{ borderColor: 'var(--border)' }}>
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0"
-              style={{ backgroundColor: '#7C6AEF' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               {getInitials(name)}
             </div>
             <div>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#E2E4EB' }}>{name}</h3>
-              <p className="text-sm" style={{ color: '#7C6AEF' }}>Senior Frontend Engineer</p>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--text-primary)' }}>{name}</h3>
+              <p className="text-sm" style={{ color: 'var(--accent)' }}>Senior Frontend Engineer</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
-              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: '#7C6AEF', letterSpacing: '0.05em' }}>
+              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: 'var(--accent)', letterSpacing: '0.05em' }}>
                 Summary
               </h4>
-              <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 Experienced software engineer with 5+ years of expertise in building scalable
                 web applications. Proficient in React, TypeScript, and Node.js ecosystems.
               </p>
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: '#7C6AEF', letterSpacing: '0.05em' }}>
+              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: 'var(--accent)', letterSpacing: '0.05em' }}>
                 Education
               </h4>
-              <p className="text-sm" style={{ color: '#7E8494' }}>
-                B.Sc. Computer Science — LUMS (2019)
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                B.Sc. Computer Science â€” LUMS (2019)
               </p>
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: '#7C6AEF', letterSpacing: '0.05em' }}>
+              <h4 className="text-xs font-bold uppercase mb-2" style={{ color: 'var(--accent)', letterSpacing: '0.05em' }}>
                 Skills
               </h4>
               <div className="flex flex-wrap gap-1.5">
@@ -84,7 +84,7 @@ function CVViewerModal({ name, onClose }: { name: string; onClose: () => void })
                   <span
                     key={s}
                     className="text-xs px-2.5 py-1 rounded border"
-                    style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
+                    style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
                   >
                     {s}
                   </span>
@@ -94,13 +94,13 @@ function CVViewerModal({ name, onClose }: { name: string; onClose: () => void })
           </div>
         </div>
 
-        <div className="px-6 py-4 border-t flex justify-end" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+        <div className="px-6 py-4 border-t flex justify-end" style={{ borderColor: 'var(--border)' }}>
           <button
             onClick={onClose}
             className="px-5 py-2 text-sm text-white rounded transition-colors cursor-pointer"
-            style={{ backgroundColor: '#7C6AEF' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+            style={{ backgroundColor: 'var(--accent)' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
           >
             Close
           </button>
@@ -146,37 +146,37 @@ export default function CandidateProfilePage() {
         <button
           onClick={() => navigate('/candidate')}
           className="flex items-center gap-1.5 text-sm mb-6 transition-colors cursor-pointer"
-          style={{ color: '#7E8494' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+          style={{ color: 'var(--text-secondary)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
         >
           <ArrowLeft size={15} />
           Back to Assessment Lobby
         </button>
 
-        <h1 className="mb-6" style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h1 className="mb-6" style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           My Profile
         </h1>
 
         {/* Identity card */}
         <div
           className="rounded-lg p-6 border mb-5"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: '#171921' }}
+          style={{ borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: 'var(--bg-surface)' }}
         >
           <div className="flex items-center gap-5">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-semibold flex-shrink-0"
-              style={{ backgroundColor: '#7C6AEF' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               {user ? getInitials(user.name) : 'C'}
             </div>
             <div>
-              <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#E2E4EB' }}>
+              <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 {user?.name || 'Candidate'}
               </h2>
               <span
                 className="inline-block mt-1 text-xs px-2.5 py-0.5 rounded"
-                style={{ backgroundColor: '#1D202A', color: '#7C6AEF', fontWeight: 500 }}
+                style={{ backgroundColor: 'var(--bg-elevated)', color: 'var(--accent)', fontWeight: 500 }}
               >
                 Candidate
               </span>
@@ -187,22 +187,22 @@ export default function CandidateProfilePage() {
         {/* Account Details */}
         <div
           className="rounded-lg p-6 border mb-5"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: '#171921' }}
+          style={{ borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: 'var(--bg-surface)' }}
         >
-          <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             Account Details
           </h3>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div
                 className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: '#1D202A' }}
+                style={{ backgroundColor: 'var(--bg-elevated)' }}
               >
-                <Mail size={14} style={{ color: '#7C6AEF' }} />
+                <Mail size={14} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Email</p>
-                <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
+                <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Email</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                   {user?.email || 'candidate@email.com'}
                 </p>
               </div>
@@ -210,25 +210,25 @@ export default function CandidateProfilePage() {
             <div className="flex items-center gap-3">
               <div
                 className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: '#1D202A' }}
+                style={{ backgroundColor: 'var(--bg-elevated)' }}
               >
-                <Shield size={14} style={{ color: '#7C6AEF' }} />
+                <Shield size={14} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Role</p>
-                <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>Candidate</p>
+                <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Role</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Candidate</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div
                 className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: '#1D202A' }}
+                style={{ backgroundColor: 'var(--bg-elevated)' }}
               >
-                <Briefcase size={14} style={{ color: '#7C6AEF' }} />
+                <Briefcase size={14} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Applied Position</p>
-                <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>Senior Frontend Engineer</p>
+                <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Applied Position</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Senior Frontend Engineer</p>
               </div>
             </div>
           </div>
@@ -237,12 +237,12 @@ export default function CandidateProfilePage() {
         {/* CV Section */}
         <div
           className="rounded-lg p-6 border"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: '#171921' }}
+          style={{ borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)', backgroundColor: 'var(--bg-surface)' }}
         >
-          <h3 className="mb-1" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <h3 className="mb-1" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             My CV / Resume
           </h3>
-          <p className="text-sm mb-5" style={{ color: '#7E8494', opacity: 0.7 }}>
+          <p className="text-sm mb-5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
             Upload your CV so recruiters can review your full background.
           </p>
 
@@ -260,25 +260,25 @@ export default function CandidateProfilePage() {
             <div>
               <div
                 className="flex items-center gap-4 p-4 rounded-lg border mb-4"
-                style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A' }}
+                style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-elevated)' }}
               >
                 <div
                   className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: '#fff' }}
                 >
-                  <FileText size={18} style={{ color: '#7C6AEF' }} />
+                  <FileText size={18} style={{ color: 'var(--accent)' }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate" style={{ color: '#E2E4EB' }}>
+                  <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>
                     {cvData.fileName}
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: '#7E8494' }}>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                     Uploaded on {cvData.uploadDate}
                   </p>
                 </div>
                 <span
                   className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(62,207,142,0.08)', color: '#3ECF8E' }}
+                  style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success)' }}
                 >
                   <CheckCircle size={11} />
                   Uploaded
@@ -289,9 +289,9 @@ export default function CandidateProfilePage() {
                 <button
                   onClick={() => setShowCVViewer(true)}
                   className="flex items-center gap-2 px-4 py-2.5 text-sm text-white rounded transition-colors cursor-pointer"
-                  style={{ backgroundColor: '#7C6AEF' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+                  style={{ backgroundColor: 'var(--accent)' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
                 >
                   <Eye size={14} />
                   View My CV
@@ -299,14 +299,14 @@ export default function CandidateProfilePage() {
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="flex items-center gap-2 px-4 py-2.5 text-sm rounded border transition-colors cursor-pointer"
-                  style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
+                  style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = '#9585F5';
-                    (e.currentTarget as HTMLElement).style.color = '#7C6AEF';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent-hover)';
+                    (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.06)';
-                    (e.currentTarget as HTMLElement).style.color = '#7E8494';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
+                    (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)';
                   }}
                 >
                   <Upload size={14} />
@@ -319,21 +319,21 @@ export default function CandidateProfilePage() {
             <div>
               <div
                 className="text-center py-10 rounded-lg border-2 border-dashed mb-5"
-                style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+                style={{ borderColor: 'var(--border)' }}
               >
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
-                  style={{ backgroundColor: '#1D202A' }}
+                  style={{ backgroundColor: 'var(--bg-elevated)' }}
                 >
-                  <FileText size={22} style={{ color: '#7C6AEF' }} />
+                  <FileText size={22} style={{ color: 'var(--accent)' }} />
                 </div>
-                <p className="text-sm font-medium mb-1" style={{ color: '#E2E4EB' }}>
+                <p className="text-sm font-medium mb-1" style={{ color: 'var(--text-primary)' }}>
                   No CV uploaded yet
                 </p>
-                <p className="text-sm" style={{ color: '#7E8494', opacity: 0.7 }}>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
                   Upload your CV so recruiters can review it.
                 </p>
-                <p className="text-xs mt-1" style={{ color: '#7E8494', opacity: 0.5 }}>
+                <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>
                   Supported formats: PDF, DOCX
                 </p>
               </div>
@@ -341,9 +341,9 @@ export default function CandidateProfilePage() {
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="flex items-center gap-2 px-6 py-3 text-sm text-white rounded transition-colors cursor-pointer"
-                  style={{ backgroundColor: '#7C6AEF' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#9585F5'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7C6AEF'; }}
+                  style={{ backgroundColor: 'var(--accent)' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
                 >
                   <Upload size={15} />
                   Upload CV
