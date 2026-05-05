@@ -1,4 +1,6 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import type { ReactNode, ReactElement } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import {
   Search, X, Upload, ChevronDown, MapPin, Briefcase,
@@ -122,6 +124,10 @@ function validateForm(form: FormState): Errors {
 }
 
 // ─── Sub-components ────────────────────────────────────────────────────────
+
+function Portal({ children }: { children: ReactNode }) {
+  return createPortal(children, document.body) as unknown as ReactElement;
+}
 
 function FieldError({ msg }: { msg?: string }) {
   if (!msg) return null;
@@ -501,34 +507,35 @@ export default function JobListings() {
 
       {/* ── Application Modal ─────────────────────────────────────────── */}
       {selectedJob && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-50"
-            style={{ backgroundColor: 'var(--backdrop)', backdropFilter: 'blur(4px)' }}
-            onClick={closeModal}
-            aria-hidden="true"
-          />
-
-          {/* Modal */}
-          <div
-            ref={modalRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
-            style={{ pointerEvents: 'none' }}
-          >
+        <Portal>
+          <>
+            {/* Backdrop */}
             <div
-              className="w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[88vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl flex flex-col"
-              style={{
-                backgroundColor: 'var(--bg-surface)',
-                boxShadow: 'var(--shadow-modal)',
-                pointerEvents: 'auto',
-                border: '1px solid var(--border)',
-              }}
-              onClick={e => e.stopPropagation()}
+              className="fixed inset-0"
+              style={{ backgroundColor: 'var(--backdrop)', backdropFilter: 'blur(4px)', zIndex: 9998 }}
+              onClick={closeModal}
+              aria-hidden="true"
+            />
+
+            {/* Modal positioner */}
+            <div
+              className="fixed inset-0 flex items-center justify-center p-4"
+              style={{ zIndex: 9999, pointerEvents: 'none' }}
             >
+              <div
+                ref={modalRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-title"
+                className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl flex flex-col"
+                style={{
+                  backgroundColor: 'var(--bg-surface)',
+                  boxShadow: 'var(--shadow-modal)',
+                  pointerEvents: 'auto',
+                  border: '1px solid var(--border)',
+                }}
+                onClick={e => e.stopPropagation()}
+              >
               {submitState === 'success' ? (
                 // ── Success state ────────────────────────────────────────
                 <div className="flex flex-col items-center justify-center text-center px-8 py-16">
@@ -931,6 +938,7 @@ export default function JobListings() {
             </div>
           </div>
         </>
+        </Portal>
       )}
     </div>
   );
