@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+﻿import { useNavigate } from 'react-router';
 import { CheckCircle } from 'lucide-react';
 
 const steps = [
@@ -26,55 +26,55 @@ export default function Confirmation() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16" style={{ backgroundColor: '#1D202A' }}>
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16" style={{ backgroundColor: 'var(--bg-elevated)' }}>
       <div className="max-w-lg w-full text-center">
         {/* Checkmark */}
         <div className="flex justify-center mb-6">
           <div
             className="w-20 h-20 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: 'rgba(62,207,142,0.08)' }}
+            style={{ backgroundColor: 'var(--success-bg)' }}
           >
-            <CheckCircle size={44} style={{ color: '#3ECF8E' }} />
+            <CheckCircle size={44} style={{ color: 'var(--success)' }} />
           </div>
         </div>
 
         {/* Heading */}
         <h1
           className="mb-2"
-          style={{ fontSize: '1.5rem', fontWeight: 600, color: '#E2E4EB' }}
+          style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}
         >
           All done! Your assessment has been submitted.
         </h1>
-        <p className="text-sm mb-10" style={{ color: '#7E8494' }}>
+        <p className="text-sm mb-10" style={{ color: 'var(--text-secondary)' }}>
           Here's what happens next.
         </p>
 
         {/* Steps timeline */}
         <div
           className="rounded-lg p-6 border text-left mb-8"
-          style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
         >
           {steps.map((step, i) => (
             <div key={step.number} className="flex gap-4">
               <div className="flex flex-col items-center">
                 <div
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-white flex-shrink-0"
-                  style={{ backgroundColor: '#7C6AEF' }}
+                  style={{ backgroundColor: 'var(--accent)' }}
                 >
                   {step.number}
                 </div>
                 {i < steps.length - 1 && (
                   <div
                     className="w-px flex-1 my-2"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.06)', minHeight: 32 }}
+                    style={{ backgroundColor: 'var(--border)', minHeight: 32 }}
                   />
                 )}
               </div>
               <div className="pb-6">
-                <p className="font-medium mb-1" style={{ color: '#E2E4EB', fontSize: '0.9375rem' }}>
+                <p className="font-medium mb-1" style={{ color: 'var(--text-primary)', fontSize: '0.9375rem' }}>
                   {step.title}
                 </p>
-                <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>{step.description}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{step.description}</p>
               </div>
             </div>
           ))}
@@ -92,11 +92,11 @@ export default function Confirmation() {
             <div
               key={label}
               className="rounded-lg p-3 border text-center"
-              style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)' }}
+              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)' }}
             >
-              <CheckCircle size={16} className="mx-auto mb-1.5" style={{ color: '#3ECF8E' }} />
-              <p className="text-xs font-medium" style={{ color: '#E2E4EB' }}>{label}</p>
-              <p className="text-xs mt-0.5" style={{ color: '#3ECF8E' }}>{status}</p>
+              <CheckCircle size={16} className="mx-auto mb-1.5" style={{ color: 'var(--success)' }} />
+              <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{label}</p>
+              <p className="text-xs mt-0.5" style={{ color: 'var(--success)' }}>{status}</p>
             </div>
           ))}
         </div>
@@ -104,9 +104,9 @@ export default function Confirmation() {
         <button
           onClick={() => navigate('/candidate')}
           className="px-6 py-2.5 text-sm rounded border transition-colors cursor-pointer"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494', backgroundColor: '#171921' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1D202A'; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#171921'; }}
+          style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-surface)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--bg-elevated)'; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--bg-surface)'; }}
         >
           Return to Assessment Lobby
         </button>

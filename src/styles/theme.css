@@ -1,81 +1,176 @@
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --font-size: 16px;
-  --background: #0F1117;
-  --foreground: #E2E4EB;
-  --card: #171921;
-  --card-foreground: #E2E4EB;
-  --popover: #171921;
-  --popover-foreground: #E2E4EB;
-  --primary: #7C6AEF;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1D202A;
-  --secondary-foreground: #E2E4EB;
-  --muted: #1D202A;
-  --muted-foreground: #7E8494;
-  --accent: #232738;
-  --accent-foreground: #E2E4EB;
-  --destructive: #EF6B6B;
-  --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: transparent;
-  --input-background: #13151D;
-  --switch-background: #2E3242;
-  --font-weight-medium: 500;
+/* ============================================================
+   RecruitAI Design Tokens — "Slate Ash" (dark) / "Cloud White" (light)
+   ============================================================ */
+
+:root,
+.dark {
+  /* Backgrounds */
+  --bg-base: #0E1117;
+  --bg-surface: #161B27;
+  --bg-elevated: #1C2235;
+  --bg-sidebar: #0B0F1A;
+  --bg-header: #111623;
+  --bg-input: #141929;
+  --bg-input-focus: #161B27;
+
+  /* Text */
+  --text-primary: #E8EAF0;
+  --text-secondary: #8B92A5;
+  --text-disabled: #525869;
+
+  /* Accent (electric blue) */
+  --accent: #4F8EF7;
+  --accent-hover: #6BA3F9;
+  --accent-subtle: rgba(79, 142, 247, 0.12);
+  --accent-active: rgba(79, 142, 247, 0.18);
+  --accent-rgb: 79, 142, 247;
+
+  /* Semantic */
+  --success: #34C98A;
+  --success-bg: rgba(52, 201, 138, 0.10);
+  --warning: #F0A645;
+  --warning-bg: rgba(240, 166, 69, 0.10);
+  --error: #F2605C;
+  --error-bg: rgba(242, 96, 92, 0.10);
+  --error-border: rgba(242, 96, 92, 0.25);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-input: rgba(255, 255, 255, 0.10);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --border-focus: #4F8EF7;
+
+  /* Shadows */
+  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.35);
+  --shadow-elevated: 0 2px 8px rgba(0, 0, 0, 0.40);
+  --shadow-modal: 0 4px 24px rgba(0, 0, 0, 0.50);
+
+  /* Code editor */
+  --editor-bg: #0B0F18;
+  --editor-border: #1A1F2D;
+  --editor-line-bg: #080C14;
+  --editor-line-num: #3D4250;
+  --editor-text: #D4D8E4;
+  --console-bg: #070A11;
+  --console-text: #8A8F9E;
+
+  /* Modal backdrop */
+  --backdrop: rgba(0, 0, 0, 0.6);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Typography scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+
   --font-weight-normal: 400;
-  --ring: #7C6AEF;
-  --chart-1: #7C6AEF;
-  --chart-2: #3ECF8E;
-  --chart-3: #E5A93B;
-  --chart-4: #EF6B6B;
-  --chart-5: #9585F5;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-size: 16px;
+
+  /* shadcn/radix-mapped tokens (legacy compatibility) */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-surface);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--bg-elevated);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-elevated);
+  --muted-foreground: var(--text-secondary);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--error);
+  --destructive-foreground: #FFFFFF;
+  --input: var(--bg-input);
+  --input-background: var(--bg-input);
+  --switch-background: #2E3242;
+  --ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: var(--success);
+  --chart-3: var(--warning);
+  --chart-4: var(--error);
+  --chart-5: var(--accent-hover);
   --radius: 0.625rem;
-  --sidebar: #0B0D13;
-  --sidebar-foreground: #E2E4EB;
-  --sidebar-primary: #7C6AEF;
+  --sidebar: var(--bg-sidebar);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent);
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #13151D;
-  --sidebar-accent-foreground: #E2E4EB;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #7C6AEF;
+  --sidebar-accent: var(--bg-header);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent);
+
+  /* Sidebar text always stays light (sidebar bg is always dark) */
+  --sidebar-text: #E8EAF0;
+  --sidebar-text-muted: #8B92A5;
 }
 
-.dark {
-  --background: #0F1117;
-  --foreground: #E2E4EB;
-  --card: #171921;
-  --card-foreground: #E2E4EB;
-  --popover: #171921;
-  --popover-foreground: #E2E4EB;
-  --primary: #7C6AEF;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1D202A;
-  --secondary-foreground: #E2E4EB;
-  --muted: #1D202A;
-  --muted-foreground: #7E8494;
-  --accent: #232738;
-  --accent-foreground: #E2E4EB;
-  --destructive: #EF6B6B;
-  --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: #13151D;
-  --ring: #7C6AEF;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: #7C6AEF;
-  --chart-2: #3ECF8E;
-  --chart-3: #E5A93B;
-  --chart-4: #EF6B6B;
-  --chart-5: #9585F5;
-  --sidebar: #0B0D13;
-  --sidebar-foreground: #E2E4EB;
-  --sidebar-primary: #7C6AEF;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #13151D;
-  --sidebar-accent-foreground: #E2E4EB;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #7C6AEF;
+/* ============================================================
+   Light Mode — "Cloud White"
+   ============================================================ */
+.light {
+  --bg-base: #F4F6FA;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-sidebar: #1C2235;
+  --bg-header: #FFFFFF;
+  --bg-input: #F7F9FC;
+  --bg-input-focus: #FFFFFF;
+
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-disabled: #9CA3AF;
+
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-subtle: rgba(37, 99, 235, 0.08);
+  --accent-active: rgba(37, 99, 235, 0.12);
+  --accent-rgb: 37, 99, 235;
+
+  --success: #059669;
+  --success-bg: rgba(5, 150, 105, 0.08);
+  --warning: #D97706;
+  --warning-bg: rgba(217, 119, 6, 0.08);
+  --error: #DC2626;
+  --error-bg: rgba(220, 38, 38, 0.08);
+  --error-border: rgba(220, 38, 38, 0.25);
+
+  --border: rgba(17, 24, 39, 0.08);
+  --border-input: rgba(17, 24, 39, 0.12);
+  --border-hover: rgba(17, 24, 39, 0.20);
+  --border-focus: #2563EB;
+
+  --shadow-card: 0 1px 3px rgba(17, 24, 39, 0.08);
+  --shadow-elevated: 0 4px 12px rgba(17, 24, 39, 0.10);
+  --shadow-modal: 0 12px 32px rgba(17, 24, 39, 0.18);
+
+  --editor-bg: #F7F9FC;
+  --editor-border: #E5E7EB;
+  --editor-line-bg: #F0F2F7;
+  --editor-line-num: #9CA3AF;
+  --editor-text: #111827;
+  --console-bg: #1F2937;
+  --console-text: #D1D5DB;
+
+  --backdrop: rgba(17, 24, 39, 0.45);
+
+  /* Sidebar text stays light even in light mode (dark sidebar bg) */
+  --sidebar-text: #E8EAF0;
+  --sidebar-text-muted: #8B92A5;
 }
 
 @theme inline {
@@ -124,80 +219,109 @@
     @apply border-border outline-ring/50;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
-
-  /* Global smooth transitions for interactive elements */
-  a, button, input, select, textarea {
-    transition: all 0.2s ease;
-  }
-
-  /* Custom scrollbar for dark theme */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.18);
-  }
-
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
-
   html {
     font-size: var(--font-size);
   }
 
-  h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  code, pre, .font-mono {
+    font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  a, button, input, select, textarea {
+    transition: background-color 0.18s ease, color 0.18s ease,
+                border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
   }
 
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  /* Custom scrollbars */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: var(--radius-pill);
   }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
-  label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+  h1 { font-size: var(--text-2xl); font-weight: var(--font-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
+  h2 { font-size: var(--text-xl);  font-weight: var(--font-weight-semibold); line-height: 1.25; letter-spacing: -0.01em; }
+  h3 { font-size: var(--text-lg);  font-weight: var(--font-weight-medium);   line-height: 1.3;  letter-spacing: -0.01em; }
+  h4 { font-size: var(--text-base);font-weight: var(--font-weight-medium);   line-height: 1.4; }
 
-  button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
-  }
+  label  { font-size: var(--text-sm); font-weight: var(--font-weight-medium); line-height: 1.5; }
+  button { font-size: var(--text-sm); font-weight: var(--font-weight-medium); line-height: 1.5; }
+  input  { font-size: var(--text-sm); font-weight: var(--font-weight-normal); line-height: 1.5; }
 }
+
+/* ============================================================
+   Reusable utilities
+   ============================================================ */
+
+/* Page fade-in */
+@keyframes ra-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ra-page-enter { animation: ra-fade-in 0.25s ease-out both; }
+
+/* Skeleton shimmer */
+@keyframes ra-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.ra-skeleton {
+  background: linear-gradient(90deg,
+    var(--bg-surface) 0%,
+    var(--bg-elevated) 50%,
+    var(--bg-surface) 100%);
+  background-size: 800px 100%;
+  animation: ra-shimmer 1.4s linear infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Top progress bar */
+@keyframes ra-progress {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+.ra-top-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 9999;
+  background: var(--accent-subtle); overflow: hidden;
+}
+.ra-top-progress::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--accent);
+  animation: ra-progress 1.1s ease-in-out infinite;
+}
+
+/* Hover lift for clickable cards */
+.ra-card-interactive {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.ra-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover) !important;
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Visible focus ring on keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+button:focus-visible, a:focus-visible { outline-offset: 3px; }
+
+/* Disable focus ring on mouse-only clicks */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Number counter */
+.ra-tabular { font-variant-numeric: tabular-nums; }

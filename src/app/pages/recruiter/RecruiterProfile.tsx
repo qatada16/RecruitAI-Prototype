@@ -1,7 +1,8 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Building, Shield, Bell, Moon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 function getInitials(name: string) {
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -10,8 +11,8 @@ function getInitials(name: string) {
 export default function RecruiterProfile() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [notifications, setNotifications] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
   const [twoFactor, setTwoFactor] = useState(false);
 
   return (
@@ -20,37 +21,37 @@ export default function RecruiterProfile() {
       <button
         onClick={() => navigate('/recruiter')}
         className="flex items-center gap-1.5 text-sm mb-6 transition-colors cursor-pointer"
-        style={{ color: '#7E8494' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+        style={{ color: 'var(--text-secondary)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
         Back to Dashboard
       </button>
 
-      <h1 className="mb-6" style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
+      <h1 className="mb-6" style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
         My Profile
       </h1>
 
       {/* Identity card */}
       <div
         className="rounded-lg p-6 border mb-5"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
         <div className="flex items-center gap-5">
           <div
             className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-semibold flex-shrink-0"
-            style={{ backgroundColor: '#7C6AEF' }}
+            style={{ backgroundColor: 'var(--accent)' }}
           >
             {user ? getInitials(user.name) : 'R'}
           </div>
           <div>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#E2E4EB' }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {user?.name || 'Recruiter'}
             </h2>
             <span
               className="inline-block mt-1 text-xs px-2.5 py-0.5 rounded"
-              style={{ backgroundColor: '#1D202A', color: '#7C6AEF', fontWeight: 500 }}
+              style={{ backgroundColor: 'var(--bg-elevated)', color: 'var(--accent)', fontWeight: 500 }}
             >
               Recruiter
             </span>
@@ -61,22 +62,22 @@ export default function RecruiterProfile() {
       {/* Contact & Company Info */}
       <div
         className="rounded-lg p-6 border mb-5"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Account Details
         </h3>
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div
               className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#1D202A' }}
+              style={{ backgroundColor: 'var(--bg-elevated)' }}
             >
-              <Mail size={14} style={{ color: '#7C6AEF' }} />
+              <Mail size={14} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Email</p>
-              <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
+              <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Email</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                 {user?.email || 'recruiter@company.com'}
               </p>
             </div>
@@ -84,25 +85,25 @@ export default function RecruiterProfile() {
           <div className="flex items-center gap-3">
             <div
               className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#1D202A' }}
+              style={{ backgroundColor: 'var(--bg-elevated)' }}
             >
-              <Shield size={14} style={{ color: '#7C6AEF' }} />
+              <Shield size={14} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Role</p>
-              <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>Recruiter</p>
+              <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Role</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Recruiter</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div
               className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#1D202A' }}
+              style={{ backgroundColor: 'var(--bg-elevated)' }}
             >
-              <Building size={14} style={{ color: '#7C6AEF' }} />
+              <Building size={14} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <p className="text-xs mb-0.5" style={{ color: '#7E8494', opacity: 0.7 }}>Company</p>
-              <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>TechCorp Inc.</p>
+              <p className="text-xs mb-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Company</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>TechCorp Inc.</p>
             </div>
           </div>
         </div>
@@ -111,34 +112,34 @@ export default function RecruiterProfile() {
       {/* Account Settings */}
       <div
         className="rounded-lg p-6 border"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Account Settings
         </h3>
         <div className="space-y-4">
           {[
             { icon: Bell, label: 'Email Notifications', description: 'Receive alerts for new applications and status changes', value: notifications, toggle: setNotifications },
-            { icon: Moon, label: 'Dark Mode', description: 'Switch to a darker interface theme', value: darkMode, toggle: setDarkMode },
+            { icon: Moon, label: 'Dark Mode', description: 'Switch to a darker interface theme', value: theme === 'dark', toggle: () => toggleTheme() },
             { icon: Shield, label: 'Two-Factor Authentication', description: 'Add an extra layer of security to your account', value: twoFactor, toggle: setTwoFactor },
           ].map(({ icon: Icon, label, description, value, toggle }) => (
             <div key={label} className="flex items-center justify-between py-2">
               <div className="flex items-center gap-3">
                 <div
                   className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: '#1D202A' }}
+                  style={{ backgroundColor: 'var(--bg-elevated)' }}
                 >
-                  <Icon size={14} style={{ color: '#7C6AEF' }} />
+                  <Icon size={14} style={{ color: 'var(--accent)' }} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium" style={{ color: '#E2E4EB' }}>{label}</p>
-                  <p className="text-xs" style={{ color: '#7E8494', opacity: 0.7 }}>{description}</p>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{label}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>{description}</p>
                 </div>
               </div>
               <button
                 onClick={() => toggle((v: boolean) => !v)}
                 className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors cursor-pointer flex-shrink-0"
-                style={{ backgroundColor: value ? '#7C6AEF' : '#1D202A' }}
+                style={{ backgroundColor: value ? 'var(--accent)' : 'var(--bg-elevated)' }}
               >
                 <span
                   className="inline-block w-3.5 h-3.5 rounded-full bg-white transition-transform"

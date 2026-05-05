@@ -1,11 +1,11 @@
-import { useParams, useNavigate } from 'react-router';
+﻿import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft } from 'lucide-react';
 import { candidates, codeSnippet } from '../../data/mockData';
 
 function getScoreColor(score: number) {
-  if (score >= 80) return '#3ECF8E';
-  if (score >= 65) return '#E5A93B';
-  return '#EF6B6B';
+  if (score >= 80) return 'var(--success)';
+  if (score >= 65) return 'var(--warning)';
+  return 'var(--error)';
 }
 
 function ScoreRow({
@@ -20,20 +20,20 @@ function ScoreRow({
   return (
     <div className="mb-5">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
+        <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
           {label}
         </span>
         <span className="text-sm font-semibold" style={{ color: getScoreColor(score) }}>
           {score}%
         </span>
       </div>
-      <div className="h-2.5 rounded-full mb-2" style={{ backgroundColor: '#1D202A' }}>
+      <div className="h-2.5 rounded-full mb-2" style={{ backgroundColor: 'var(--bg-elevated)' }}>
         <div
           className="h-full rounded-full"
-          style={{ width: `${score}%`, backgroundColor: '#9585F5' }}
+          style={{ width: `${score}%`, backgroundColor: 'var(--accent-hover)' }}
         />
       </div>
-      <p className="text-xs italic" style={{ color: '#7E8494' }}>
+      <p className="text-xs italic" style={{ color: 'var(--text-secondary)' }}>
         {comment}
       </p>
     </div>
@@ -52,43 +52,43 @@ export default function AssessmentDeepDive() {
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
-        style={{ color: '#7E8494' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+        style={{ color: 'var(--text-secondary)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
         Back to Profile
       </button>
 
       <div className="mb-5">
-        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h1 style={{ fontSize: '1.375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Coding Assessment Review
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>
-          {candidate.name} · Two Sum — Array Hashing · Python
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+          {candidate.name} Â· Two Sum â€” Array Hashing Â· Python
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-0 rounded-lg overflow-hidden border" style={{ borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
-        {/* Left panel – Code Editor */}
-        <div className="flex-1 min-w-0" style={{ backgroundColor: '#0D1017' }}>
+      <div className="flex flex-col lg:flex-row gap-0 rounded-lg overflow-hidden border" style={{ borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
+        {/* Left panel â€“ Code Editor */}
+        <div className="flex-1 min-w-0" style={{ backgroundColor: 'var(--editor-bg)' }}>
           {/* Panel header */}
           <div
             className="flex items-center justify-between px-5 py-3 border-b"
-            style={{ borderColor: '#1A1D27' }}
+            style={{ borderColor: 'var(--editor-border)' }}
           >
             <div className="flex items-center gap-3">
               <span
                 className="text-xs px-2 py-0.5 rounded"
-                style={{ backgroundColor: '#7C6AEF', color: '#fff' }}
+                style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
               >
                 Python 3.11
               </span>
-              <span className="text-xs" style={{ color: '#7E8494' }}>
-                Two Sum — Array Hashing
+              <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                Two Sum â€” Array Hashing
               </span>
             </div>
-            <span className="text-xs" style={{ color: '#7E8494' }}>
+            <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
               Submitted 2h ago
             </span>
           </div>
@@ -101,11 +101,11 @@ export default function AssessmentDeepDive() {
                   <tr key={i} className="hover:bg-white/5">
                     <td
                       className="px-4 py-0.5 text-right select-none"
-                      style={{ color: '#7E8494', width: '3rem', userSelect: 'none' }}
+                      style={{ color: 'var(--text-secondary)', width: '3rem', userSelect: 'none' }}
                     >
                       {i + 1}
                     </td>
-                    <td className="pl-2 pr-5 py-0.5" style={{ color: '#D4D8E4', whiteSpace: 'pre' }}>
+                    <td className="pl-2 pr-5 py-0.5" style={{ color: 'var(--editor-text)', whiteSpace: 'pre' }}>
                       {line || ' '}
                     </td>
                   </tr>
@@ -115,17 +115,17 @@ export default function AssessmentDeepDive() {
           </div>
         </div>
 
-        {/* Right panel – Evaluation */}
+        {/* Right panel â€“ Evaluation */}
         <div
           className="w-full lg:w-96 flex-shrink-0 border-t lg:border-t-0 lg:border-l"
-          style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)' }}
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)' }}
         >
           {/* Header */}
-          <div className="px-6 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+          <div className="px-6 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {candidate.name}
             </h3>
-            <p className="text-sm mt-0.5" style={{ color: '#7E8494' }}>Two Sum — Array Hashing</p>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>Two Sum â€” Array Hashing</p>
           </div>
 
           <div className="px-6 py-5">
@@ -148,14 +148,14 @@ export default function AssessmentDeepDive() {
             {/* Full evaluation */}
             <div
               className="mt-4 p-4 rounded-lg border"
-              style={{ borderColor: 'rgba(255,255,255,0.06)', backgroundColor: '#1D202A' }}
+              style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-elevated)' }}
             >
-              <p className="text-xs font-semibold mb-2" style={{ color: '#7C6AEF' }}>
+              <p className="text-xs font-semibold mb-2" style={{ color: 'var(--accent)' }}>
                 AI WRITTEN EVALUATION
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {candidate.name} demonstrated strong algorithmic thinking by immediately
-                identifying the optimal hash map approach, avoiding the brute-force O(n²)
+                identifying the optimal hash map approach, avoiding the brute-force O(nÂ²)
                 solution. The use of Python type hints and a comprehensive docstring reflects
                 professional-grade coding habits. The solution correctly handles all edge
                 cases including duplicate values. Overall, this submission reflects
@@ -166,7 +166,7 @@ export default function AssessmentDeepDive() {
 
             {/* Overall */}
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-sm font-medium" style={{ color: '#7E8494' }}>Coding Score</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Coding Score</span>
               <span
                 className="text-lg font-semibold"
                 style={{ color: getScoreColor(candidate.codingScore) }}
@@ -181,9 +181,9 @@ export default function AssessmentDeepDive() {
       {/* Test results */}
       <div
         className="rounded-lg border mt-4 p-5"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
       >
-        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#E2E4EB' }}>
+        <h3 className="mb-4" style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
           Test Case Results
         </h3>
         <div className="space-y-2.5">
@@ -197,17 +197,17 @@ export default function AssessmentDeepDive() {
             <div
               key={i}
               className="flex items-center gap-4 px-4 py-2.5 rounded border text-sm"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+              style={{ borderColor: 'var(--border)' }}
             >
               <span
                 className="text-xs font-medium w-12 flex-shrink-0"
-                style={{ color: tc.pass ? '#3ECF8E' : '#EF6B6B' }}
+                style={{ color: tc.pass ? 'var(--success)' : 'var(--error)' }}
               >
-                {tc.pass ? '✓ Pass' : '✗ Fail'}
+                {tc.pass ? 'âœ“ Pass' : 'âœ— Fail'}
               </span>
-              <span className="flex-1 font-mono text-xs" style={{ color: '#7E8494' }}>Input: {tc.input}</span>
-              <span className="font-mono text-xs" style={{ color: '#7E8494' }}>Expected: {tc.expected}</span>
-              <span className="font-mono text-xs" style={{ color: tc.pass ? '#3ECF8E' : '#EF6B6B' }}>
+              <span className="flex-1 font-mono text-xs" style={{ color: 'var(--text-secondary)' }}>Input: {tc.input}</span>
+              <span className="font-mono text-xs" style={{ color: 'var(--text-secondary)' }}>Expected: {tc.expected}</span>
+              <span className="font-mono text-xs" style={{ color: tc.pass ? 'var(--success)' : 'var(--error)' }}>
                 Got: {tc.actual}
               </span>
             </div>

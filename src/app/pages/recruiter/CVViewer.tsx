@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router';
+﻿import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Phone, Calendar, FileText } from 'lucide-react';
 import { candidates } from '../../data/mockData';
 
@@ -14,57 +14,57 @@ export default function CVViewer() {
       <button
         onClick={() => navigate('/recruiter/candidates')}
         className="flex items-center gap-1.5 text-sm mb-6 transition-colors cursor-pointer"
-        style={{ color: '#7E8494' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+        style={{ color: 'var(--text-secondary)' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--accent)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
-        ← Back to Candidates
+        â† Back to Candidates
       </button>
 
       {/* CV Document */}
       <div
         className="rounded-xl border overflow-hidden"
-        style={{ backgroundColor: '#171921', borderColor: 'rgba(255,255,255,0.06)', boxShadow: '0 2px 12px rgba(124,106,239,0.08)' }}
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 2px 12px rgba(124,106,239,0.08)' }}
       >
         {/* CV Header bar */}
         <div
           className="px-4 sm:px-8 py-5 flex items-center gap-3 border-b"
-          style={{ backgroundColor: '#0B0D13', borderColor: 'rgba(255,255,255,0.08)' }}
+          style={{ backgroundColor: 'var(--bg-sidebar)', borderColor: 'var(--border-input)' }}
         >
-          <FileText size={16} style={{ color: '#E2E4EB' }} />
-          <span className="text-sm font-medium" style={{ color: '#E2E4EB' }}>
-            Curriculum Vitae — {candidate.name}
+          <FileText size={16} style={{ color: 'var(--text-primary)' }} />
+          <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+            Curriculum Vitae â€” {candidate.name}
           </span>
         </div>
 
         <div className="px-4 sm:px-10 py-6 sm:py-8">
           {/* Candidate Header */}
-          <div className="flex flex-col sm:flex-row items-start gap-5 mb-8 pb-8 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div className="flex flex-col sm:flex-row items-start gap-5 mb-8 pb-8 border-b" style={{ borderColor: 'var(--border)' }}>
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-semibold flex-shrink-0"
-              style={{ backgroundColor: '#7C6AEF' }}
+              style={{ backgroundColor: 'var(--accent)' }}
             >
               {initials}
             </div>
             <div className="flex-1">
-              <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#E2E4EB' }}>
+              <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                 {candidate.name}
               </h1>
-              <p className="mt-0.5" style={{ fontSize: '1rem', color: '#7C6AEF' }}>
+              <p className="mt-0.5" style={{ fontSize: '1rem', color: 'var(--accent)' }}>
                 {candidate.role}
               </p>
               <div className="flex flex-wrap gap-4 mt-3">
-                <span className="flex items-center gap-1.5 text-sm" style={{ color: '#7E8494' }}>
-                  <Mail size={13} style={{ color: '#9585F5' }} />
+                <span className="flex items-center gap-1.5 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  <Mail size={13} style={{ color: 'var(--accent-hover)' }} />
                   {candidate.email}
                 </span>
-                <span className="flex items-center gap-1.5 text-sm" style={{ color: '#7E8494' }}>
-                  <Phone size={13} style={{ color: '#9585F5' }} />
+                <span className="flex items-center gap-1.5 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  <Phone size={13} style={{ color: 'var(--accent-hover)' }} />
                   {candidate.phone}
                 </span>
-                <span className="flex items-center gap-1.5 text-sm" style={{ color: '#7E8494' }}>
-                  <Calendar size={13} style={{ color: '#9585F5' }} />
+                <span className="flex items-center gap-1.5 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  <Calendar size={13} style={{ color: 'var(--accent-hover)' }} />
                   Applied: {candidate.appliedDate}
                 </span>
               </div>
@@ -75,7 +75,7 @@ export default function CVViewer() {
           <section className="mb-8">
             <h2
               className="mb-4 pb-1.5 border-b"
-              style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#E2E4EB', borderColor: '#7C6AEF', borderBottomWidth: 2 }}
+              style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-primary)', borderColor: 'var(--accent)', borderBottomWidth: 2 }}
             >
               EDUCATION
             </h2>
@@ -85,25 +85,25 @@ export default function CVViewer() {
                   <div className="flex flex-col items-center pt-1">
                     <div
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: '#7C6AEF' }}
+                      style={{ backgroundColor: 'var(--accent)' }}
                     />
                     {i < candidate.education.length - 1 && (
-                      <div className="w-px flex-1 mt-1.5" style={{ backgroundColor: '#1D202A', minHeight: 20 }} />
+                      <div className="w-px flex-1 mt-1.5" style={{ backgroundColor: 'var(--bg-elevated)', minHeight: 20 }} />
                     )}
                   </div>
                   <div>
                     <div className="flex items-center gap-3 mb-0.5">
                       <span
                         className="text-xs px-2 py-0.5 rounded"
-                        style={{ backgroundColor: '#1D202A', color: '#7C6AEF', fontWeight: 500 }}
+                        style={{ backgroundColor: 'var(--bg-elevated)', color: 'var(--accent)', fontWeight: 500 }}
                       >
                         {e.year}
                       </span>
                     </div>
-                    <p className="font-semibold" style={{ color: '#E2E4EB', fontSize: '0.9375rem' }}>
+                    <p className="font-semibold" style={{ color: 'var(--text-primary)', fontSize: '0.9375rem' }}>
                       {e.degree}
                     </p>
-                    <p className="text-sm" style={{ color: '#7E8494' }}>{e.institution}</p>
+                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{e.institution}</p>
                   </div>
                 </div>
               ))}
@@ -114,7 +114,7 @@ export default function CVViewer() {
           <section className="mb-8">
             <h2
               className="mb-4 pb-1.5 border-b"
-              style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#E2E4EB', borderColor: '#7C6AEF', borderBottomWidth: 2 }}
+              style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-primary)', borderColor: 'var(--accent)', borderBottomWidth: 2 }}
             >
               WORK EXPERIENCE
             </h2>
@@ -124,26 +124,26 @@ export default function CVViewer() {
                   <div className="flex flex-col items-center pt-1">
                     <div
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: '#9585F5' }}
+                      style={{ backgroundColor: 'var(--accent-hover)' }}
                     />
                     {i < candidate.experience.length - 1 && (
-                      <div className="w-px flex-1 mt-1.5" style={{ backgroundColor: '#1D202A', minHeight: 20 }} />
+                      <div className="w-px flex-1 mt-1.5" style={{ backgroundColor: 'var(--bg-elevated)', minHeight: 20 }} />
                     )}
                   </div>
                   <div className="flex-1 pb-2">
                     <div className="flex items-start justify-between mb-0.5">
-                      <p className="font-semibold" style={{ color: '#E2E4EB', fontSize: '0.9375rem' }}>
+                      <p className="font-semibold" style={{ color: 'var(--text-primary)', fontSize: '0.9375rem' }}>
                         {e.title}
                       </p>
                       <span
                         className="text-xs px-2 py-0.5 rounded ml-3 flex-shrink-0"
-                        style={{ backgroundColor: '#1D202A', color: '#7E8494' }}
+                        style={{ backgroundColor: 'var(--bg-elevated)', color: 'var(--text-secondary)' }}
                       >
                         {e.year}
                       </span>
                     </div>
-                    <p className="text-sm font-medium mb-1.5" style={{ color: '#7C6AEF' }}>{e.company}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: '#7E8494' }}>{e.desc}</p>
+                    <p className="text-sm font-medium mb-1.5" style={{ color: 'var(--accent)' }}>{e.company}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{e.desc}</p>
                   </div>
                 </div>
               ))}
@@ -154,7 +154,7 @@ export default function CVViewer() {
           <section>
             <h2
               className="mb-4 pb-1.5 border-b"
-              style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#E2E4EB', borderColor: '#7C6AEF', borderBottomWidth: 2 }}
+              style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-primary)', borderColor: 'var(--accent)', borderBottomWidth: 2 }}
             >
               SKILLS
             </h2>
@@ -163,7 +163,7 @@ export default function CVViewer() {
                 <span
                   key={skill}
                   className="text-sm px-3 py-1.5 rounded border transition-colors"
-                  style={{ borderColor: 'rgba(255,255,255,0.06)', color: '#7E8494' }}
+                  style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
                 >
                   {skill}
                 </span>

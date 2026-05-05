@@ -1,11 +1,14 @@
 import { Outlet, useNavigate, useLocation } from 'react-router';
-import { LogOut } from 'lucide-react';
+import { LogOut, HelpCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import ThemeToggle from '../common/ThemeToggle';
+import PageTransition from '../common/PageTransition';
+import { toast } from 'sonner';
 
 const stages = [
   { label: 'Voice Interview', path: '/candidate/voice-interview' },
-  { label: 'Coding Test', path: '/candidate/coding-test' },
-  { label: 'System Design', path: '/candidate/system-design' },
+  { label: 'Coding Test',     path: '/candidate/coding-test' },
+  { label: 'System Design',   path: '/candidate/system-design' },
 ];
 
 function getInitials(name: string) {
@@ -19,6 +22,7 @@ export default function CandidateLayout() {
 
   const handleLogout = () => {
     logout();
+    toast.success('Signed out');
     navigate('/');
   };
 
@@ -29,35 +33,46 @@ export default function CandidateLayout() {
   const currentStageIndex = stages.findIndex(s => location.pathname.startsWith(s.path));
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#0F1117' }}>
-      {/* Top navigation bar */}
-      <header className="border-b" style={{ backgroundColor: '#13151D', borderColor: 'rgba(255,255,255,0.06)' }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-base)' }}>
+      <header
+        style={{
+          backgroundColor: 'var(--bg-header)',
+          borderBottom: '1px solid var(--border)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 30,
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate('/candidate')}
+            className="flex items-center gap-2 cursor-pointer rounded-md"
+            aria-label="RecruitAI home"
+          >
             <div
-              className="w-7 h-7 rounded flex items-center justify-center"
-              style={{ backgroundColor: '#7C6AEF' }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ backgroundColor: 'var(--accent)' }}
             >
-              <span className="text-white text-xs font-semibold">R</span>
+              <span className="text-white text-sm font-semibold">R</span>
             </div>
-            <span className="text-base font-semibold" style={{ color: '#E2E4EB' }}>RecruitAI</span>
-          </div>
+            <span className="text-base font-semibold hidden sm:inline" style={{ color: 'var(--text-primary)' }}>
+              RecruitAI
+            </span>
+          </button>
 
-          {/* Progress indicator - center (hidden on small screens) */}
           {!isLobby && !isConfirmation && !isProfile && (
             <div className="hidden sm:flex items-center gap-2">
               {stages.map((stage, i) => (
                 <div key={stage.path} className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
                     <div
-                      className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold"
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold"
                       style={
                         i === currentStageIndex
-                          ? { backgroundColor: '#7C6AEF', color: '#fff' }
+                          ? { backgroundColor: 'var(--accent)', color: '#fff' }
                           : i < currentStageIndex
-                          ? { backgroundColor: '#3ECF8E', color: '#fff' }
-                          : { backgroundColor: '#1D202A', color: '#7E8494' }
+                          ? { backgroundColor: 'var(--success)', color: '#fff' }
+                          : { backgroundColor: 'var(--bg-elevated)', color: 'var(--text-secondary)' }
                       }
                     >
                       {i + 1}
@@ -65,45 +80,65 @@ export default function CandidateLayout() {
                     <span
                       className="text-sm hidden md:inline"
                       style={{
-                        color: i === currentStageIndex ? '#E2E4EB' : i < currentStageIndex ? '#3ECF8E' : '#7E8494',
-                        opacity: i > currentStageIndex ? 0.6 : 1,
+                        color:
+                          i === currentStageIndex ? 'var(--text-primary)' :
+                          i < currentStageIndex ? 'var(--success)' : 'var(--text-secondary)',
                       }}
                     >
                       {stage.label}
                     </span>
                   </div>
                   {i < stages.length - 1 && (
-                    <div className="w-6 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
+                    <div className="w-6 h-px" style={{ backgroundColor: 'var(--border)' }} />
                   )}
                 </div>
               ))}
             </div>
           )}
 
-          {/* User info */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
             <button
-              onClick={() => navigate('/candidate/profile')}
-              className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-semibold transition-all cursor-pointer"
-              style={{ backgroundColor: '#7C6AEF' }}
-              title="View profile"
+              className="w-9 h-9 rounded-full hidden sm:inline-flex items-center justify-center cursor-pointer"
+              style={{ color: 'var(--text-secondary)' }}
+              aria-label="Help"
+              title="Help & FAQ"
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 2px #9585F5';
+                e.currentTarget.style.backgroundColor = 'var(--accent-subtle)';
+                e.currentTarget.style.color = 'var(--accent)';
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '';
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = 'var(--text-secondary)';
               }}
+            >
+              <HelpCircle size={17} />
+            </button>
+            <button
+              onClick={() => navigate('/candidate/profile')}
+              className="ml-1 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold cursor-pointer"
+              style={{ backgroundColor: 'var(--accent)' }}
+              title="View profile"
+              aria-label="View profile"
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 0 2px var(--accent-hover)'; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = ''; }}
             >
               {user ? getInitials(user.name) : 'U'}
             </button>
-            <span className="text-sm hidden sm:inline" style={{ color: '#7E8494' }}>{user?.name || 'Candidate'}</span>
             <button
               onClick={handleLogout}
-              className="transition-colors cursor-pointer"
-              style={{ color: '#7E8494' }}
+              className="ml-1 cursor-pointer p-2 rounded-md"
+              style={{ color: 'var(--text-secondary)' }}
               title="Log out"
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#7C6AEF'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#7E8494'; }}
+              aria-label="Log out"
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--error)';
+                e.currentTarget.style.backgroundColor = 'var(--error-bg)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
               <LogOut size={15} />
             </button>
@@ -111,10 +146,44 @@ export default function CandidateLayout() {
         </div>
       </header>
 
-      {/* Page content */}
-      <main>
-        <Outlet />
+      <main className="flex-1">
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
+
+      <footer
+        className="px-4 sm:px-6 py-3 text-xs"
+        style={{
+          borderTop: '1px solid var(--border)',
+          color: 'var(--text-secondary)',
+          backgroundColor: 'var(--bg-header)',
+        }}
+      >
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <span>© RecruitAI</span>
+          <div className="flex items-center gap-4">
+            <a
+              href="#"
+              className="hover:underline"
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
+            >
+              Help &amp; FAQ
+            </a>
+            <a
+              href="#"
+              className="hover:underline"
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
+            >
+              Privacy
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
