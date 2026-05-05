@@ -186,7 +186,7 @@ export default function CandidateLayout() {
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
             >
-              Help &amp; FAQ
+              Help & FAQ
             </a>
             <a
               href="#"

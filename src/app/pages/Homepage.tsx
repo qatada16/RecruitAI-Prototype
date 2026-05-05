@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Mic, Code2, FileText, ArrowRight, CheckCircle, Briefcase, Users, Award, Layers } from 'lucide-react';
 import ThemeToggle from '../components/common/ThemeToggle';
 
@@ -65,7 +65,7 @@ export default function Homepage() {
             Hire Smarter with AI-Powered Recruitment
           </h1>
           <p className="mb-2" style={{ fontSize: '1.125rem', lineHeight: 1.6, color: 'var(--text-secondary)' }}>
-            Automate your entire hiring pipeline â€” from CV parsing to voice interviews
+            Automate your entire hiring pipeline — from CV parsing to voice interviews
           </p>
           <p className="mb-10" style={{ fontSize: '1rem', color: 'var(--text-secondary)', opacity: 0.75 }}>
             Score candidates objectively, reduce time-to-hire by 70%, and focus on people who matter most.
@@ -119,7 +119,7 @@ export default function Homepage() {
                 icon: Code2,
                 title: 'Coding Assessments',
                 description:
-                  'Evaluate technical skills with live coding challenges. AI reviews correctness, efficiency, and coding standards â€” no manual grading needed.',
+                  'Evaluate technical skills with live coding challenges. AI reviews correctness, efficiency, and coding standards — no manual grading needed.',
                 metrics: ['50+ problem library', 'Multi-language support', 'Automated evaluation'],
               },
               {
@@ -193,7 +193,7 @@ export default function Homepage() {
             How RecruitAI Works
           </h2>
           <p className="text-center mb-12 text-sm" style={{ color: 'var(--text-secondary)' }}>
-            From job posting to ranked results â€” fully automated, end-to-end.
+            From job posting to ranked results — fully automated, end-to-end.
           </p>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 relative">
@@ -220,7 +220,7 @@ export default function Homepage() {
                 icon: Layers,
                 step: 3,
                 title: 'AI Evaluates',
-                desc: 'RecruitAI automatically scores CVs, code quality, and communication â€” no manual grading needed.',
+                desc: 'RecruitAI automatically scores CVs, code quality, and communication — no manual grading needed.',
               },
               {
                 icon: Award,

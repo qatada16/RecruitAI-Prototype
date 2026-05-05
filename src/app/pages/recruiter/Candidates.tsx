@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Search, ChevronDown, ChevronUp, ChevronsUpDown, Star, X, Download } from 'lucide-react';
 import { candidates } from '../../data/mockData';
@@ -92,7 +92,7 @@ export default function Candidates() {
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Search candidate nameâ€¦"
+            placeholder="Search candidate name…"
             className="w-full pl-8 pr-3 py-2 text-sm rounded border outline-none"
             style={{ borderColor: 'var(--border)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-elevated)' }}
             onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
@@ -222,26 +222,26 @@ export default function Candidates() {
                   aria-label="Select all candidates"
                 />
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Rank
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Candidate
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Applied Role
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 CV Score
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Coding
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Communication
               </th>
               <th
-                className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer select-none"
+                className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider cursor-pointer select-none"
                 style={{ color: 'var(--text-secondary)' }}
                 onClick={() => setSortDir(d => d === 'desc' ? 'asc' : 'desc')}
               >
@@ -250,10 +250,10 @@ export default function Candidates() {
                   {sortDir === 'desc' ? <ChevronDown size={12} /> : sortDir === 'asc' ? <ChevronUp size={12} /> : <ChevronsUpDown size={12} />}
                 </span>
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Status
               </th>
-              <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+              <th className="px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
                 Actions
               </th>
             </tr>
@@ -280,13 +280,13 @@ export default function Candidates() {
                       aria-label={`Select ${c.name}`}
                     />
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <span className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
                       #{i + 1}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-3">
+                  <td className="px-3 py-3">
+                    <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
                         style={{ backgroundColor: 'var(--accent)' }}
@@ -298,28 +298,28 @@ export default function Candidates() {
                       </span>
                     </div>
                   </td>
-                  <td className="px-5 py-3.5 text-sm" style={{ color: 'var(--text-secondary)' }}>{c.role}</td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3 text-sm" style={{ color: 'var(--text-secondary)' }}>{c.role}</td>
+                  <td className="px-3 py-3">
                     <span className="text-sm font-semibold" style={{ color: getScoreColor(c.cvScore) }}>
                       {c.cvScore}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <span className="text-sm font-semibold" style={{ color: getScoreColor(c.codingScore) }}>
                       {c.codingScore}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <span className="text-sm font-semibold" style={{ color: getScoreColor(c.communicationScore) }}>
                       {c.communicationScore}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <span className="text-sm font-semibold" style={{ color: getScoreColor(c.overallScore) }}>
                       {c.overallScore}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <span
                       className="text-xs px-2 py-1 rounded"
                       style={{ color: status.color, backgroundColor: status.bg }}
@@ -327,11 +327,11 @@ export default function Candidates() {
                       {status.label}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => navigate(`/recruiter/candidates/${c.id}`)}
-                        className="text-xs px-3 py-1.5 rounded border transition-colors cursor-pointer"
+                        className="text-xs px-2.5 py-1.5 rounded border transition-colors cursor-pointer"
                         style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
                         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--bg-elevated)'; }}
                         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
@@ -340,7 +340,7 @@ export default function Candidates() {
                       </button>
                       <button
                         onClick={() => navigate(`/recruiter/candidates/${c.id}/cv`)}
-                        className="text-xs px-3 py-1.5 rounded border transition-colors cursor-pointer"
+                        className="text-xs px-2.5 py-1.5 rounded border transition-colors cursor-pointer"
                         style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-elevated)' }}
                         onMouseEnter={e => {
                           (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent-hover)';

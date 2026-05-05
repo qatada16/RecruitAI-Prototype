@@ -1,4 +1,4 @@
-﻿import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Phone, Calendar, FileText } from 'lucide-react';
 import { candidates } from '../../data/mockData';
 
@@ -9,7 +9,7 @@ export default function CVViewer() {
   const initials = candidate.name.split(' ').map(n => n[0]).join('');
 
   return (
-    <div className="p-4 sm:p-6 max-w-3xl">
+    <div className="p-4 sm:p-6">
       {/* Back button */}
       <button
         onClick={() => navigate('/recruiter/candidates')}
@@ -19,7 +19,7 @@ export default function CVViewer() {
         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'; }}
       >
         <ArrowLeft size={15} />
-        â† Back to Candidates
+        ← Back to Candidates
       </button>
 
       {/* CV Document */}
@@ -34,7 +34,7 @@ export default function CVViewer() {
         >
           <FileText size={16} style={{ color: 'var(--text-primary)' }} />
           <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-            Curriculum Vitae â€” {candidate.name}
+            Curriculum Vitae — {candidate.name}
           </span>
         </div>
 

@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Code2, Calendar } from 'lucide-react';
 import { candidates } from '../../data/mockData';
 
@@ -40,7 +40,7 @@ export default function Assessments() {
               (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0,0,0,0.3)';
             }}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0"
                 style={{ backgroundColor: 'var(--editor-bg)' }}
@@ -52,7 +52,7 @@ export default function Assessments() {
                 <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{c.role}</p>
               </div>
             </div>
-            <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-5 flex-wrap">
+            <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
               <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
                 <Calendar size={12} />
                 {c.appliedDate}

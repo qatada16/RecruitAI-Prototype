@@ -1,4 +1,4 @@
-﻿import { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Briefcase, Upload, FileText, Eye, CheckCircle, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -31,14 +31,14 @@ function CVViewerModal({ name, onClose }: { name: string; onClose: () => void })
           <div className="flex items-center gap-2">
             <FileText size={15} style={{ color: 'var(--text-primary)' }} />
             <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-              My CV â€” {name}
+              My CV — {name}
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors cursor-pointer text-lg leading-none"
           >
-            Ã—
+            ×
           </button>
         </div>
 
@@ -72,7 +72,7 @@ function CVViewerModal({ name, onClose }: { name: string; onClose: () => void })
                 Education
               </h4>
               <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                B.Sc. Computer Science â€” LUMS (2019)
+                B.Sc. Computer Science — LUMS (2019)
               </p>
             </div>
             <div>

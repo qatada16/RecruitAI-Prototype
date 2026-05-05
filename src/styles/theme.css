@@ -325,3 +325,78 @@ button:focus-visible, a:focus-visible { outline-offset: 3px; }
 
 /* Number counter */
 .ra-tabular { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   UX / Accessibility Enhancements
+   (Shneiderman + Norman + Fitts' Law)
+   ============================================================ */
+
+/* Skip-to-content link (Shneiderman: shortcuts for frequent users) */
+.ra-skip-link {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  transition: top 0.2s ease;
+}
+.ra-skip-link:focus {
+  top: 12px;
+}
+
+/* Input focus glow (Norman: Visibility + Feedback) */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+}
+
+/* Clickable rows — larger touch/click target (Fitts' Law) */
+tr.ra-clickable-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+tr.ra-clickable-row:hover {
+  background-color: var(--accent-subtle);
+}
+
+/* Toast/snackbar animation (Shneiderman: informative feedback) */
+@keyframes ra-toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ra-toast-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(12px) scale(0.96); }
+}
+.ra-toast-enter { animation: ra-toast-in 0.25s ease-out both; }
+.ra-toast-exit  { animation: ra-toast-out 0.2s ease-in both; }
+
+/* Pulse dot for notifications (Norman: Visibility) */
+@keyframes ra-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+.ra-pulse { animation: ra-pulse 1.5s ease-in-out infinite; }
+
+/* Subtle scale on button press (Norman: Feedback + Affordance) */
+button:active:not(:disabled), .ra-btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Disabled state (Norman: Constraints) */
+button:disabled, input:disabled, select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Smooth scroll for page (Gestalt: Continuity) */
+html {
+  scroll-behavior: smooth;
+}
+

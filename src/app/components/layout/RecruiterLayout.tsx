@@ -50,6 +50,8 @@ export default function RecruiterLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-base)' }}>
+      {/* Skip to content — keyboard accessibility (Shneiderman: shortcuts) */}
+      <a href="#main-content" className="ra-skip-link">Skip to content</a>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -328,6 +330,7 @@ export default function RecruiterLayout() {
         {/* Page content */}
         <main
           className="flex-1 overflow-y-auto"
+          id="main-content"
           style={{ paddingBottom: isMobile ? 64 : 0 }}
         >
           <PageTransition>
