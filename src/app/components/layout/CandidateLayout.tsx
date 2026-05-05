@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useLocation } from 'react-router';
-import { LogOut, HelpCircle } from 'lucide-react';
+import { LogOut, HelpCircle, Briefcase } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from '../common/ThemeToggle';
 import PageTransition from '../common/PageTransition';
@@ -29,6 +29,7 @@ export default function CandidateLayout() {
   const isLobby = location.pathname === '/candidate' || location.pathname === '/candidate/';
   const isConfirmation = location.pathname === '/candidate/confirmation';
   const isProfile = location.pathname === '/candidate/profile';
+  const isJobs = location.pathname === '/candidate/jobs';
 
   const currentStageIndex = stages.findIndex(s => location.pathname.startsWith(s.path));
 
@@ -60,7 +61,7 @@ export default function CandidateLayout() {
             </span>
           </button>
 
-          {!isLobby && !isConfirmation && !isProfile && (
+          {!isLobby && !isConfirmation && !isProfile && !isJobs && (
             <div className="hidden sm:flex items-center gap-2">
               {stages.map((stage, i) => (
                 <div key={stage.path} className="flex items-center gap-2">
@@ -97,6 +98,21 @@ export default function CandidateLayout() {
           )}
 
           <div className="flex items-center gap-1">
+            <button
+              onClick={() => navigate('/candidate/jobs')}
+              className="hidden sm:inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg cursor-pointer transition-all mr-1"
+              style={{
+                backgroundColor: isJobs ? 'var(--accent-subtle)' : 'transparent',
+                color: isJobs ? 'var(--accent)' : 'var(--text-secondary)',
+                border: `1px solid ${isJobs ? 'var(--accent)' : 'transparent'}`,
+              }}
+              aria-label="Browse open positions"
+              onMouseEnter={e => { if (!isJobs) { e.currentTarget.style.backgroundColor = 'var(--accent-subtle)'; e.currentTarget.style.color = 'var(--accent)'; } }}
+              onMouseLeave={e => { if (!isJobs) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--text-secondary)'; } }}
+            >
+              <Briefcase size={14} />
+              Jobs
+            </button>
             <ThemeToggle />
             <button
               className="w-9 h-9 rounded-full hidden sm:inline-flex items-center justify-center cursor-pointer"

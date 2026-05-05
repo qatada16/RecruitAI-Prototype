@@ -1,5 +1,5 @@
 ﻿import { useNavigate } from 'react-router';
-import { Mic, Code2, Layout, CheckCircle, Globe, Camera, AlertCircle, ExternalLink } from 'lucide-react';
+import { Mic, Code2, Layout, CheckCircle, Globe, Camera, AlertCircle, ExternalLink, Briefcase, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCandidateContext } from '../../context/CandidateContext';
 
@@ -169,6 +169,30 @@ export default function AssessmentLobby() {
             Senior Frontend Engineer
           </span>
         </p>
+      </div>
+
+      {/* Browse Jobs banner */}
+      <div
+        className="flex items-center justify-between gap-4 p-4 rounded-xl border mb-8 cursor-pointer transition-all"
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: 'var(--shadow-card)' }}
+        onClick={() => navigate('/candidate/jobs')}
+        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--accent-active)'; }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.backgroundColor = 'var(--bg-surface)'; }}
+        role="button"
+        tabIndex={0}
+        aria-label="Browse open positions"
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate('/candidate/jobs'); }}
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--accent-subtle)' }}>
+            <Briefcase size={18} style={{ color: 'var(--accent)' }} />
+          </div>
+          <div>
+            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Browse Open Positions</p>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>16 roles available at top Pakistani tech companies</p>
+          </div>
+        </div>
+        <ArrowRight size={18} style={{ color: 'var(--accent)', flexShrink: 0 }} />
       </div>
 
       {/* Hardware check */}
