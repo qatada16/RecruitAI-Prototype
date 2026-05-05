@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { candidates, interviewTranscript } from '../../data/mockData';
@@ -44,7 +44,7 @@ export default function InterviewAnalytics() {
   const [progress, setProgress] = useState(37);
 
   return (
-    <div className="p-4 sm:p-6 max-w-7xl">
+    <div className="p-4 sm:p-6">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -61,7 +61,7 @@ export default function InterviewAnalytics() {
           Interview Analytics
         </h1>
         <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-          {candidate.name} Â· {candidate.role} Â· Completed Feb 22, 2026
+          {candidate.name} · {candidate.role} · Completed Feb 22, 2026
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export default function InterviewAnalytics() {
         </div>
 
         {/* Charts + Insight */}
-        <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
+        <div className="w-full lg:w-[22rem] flex-shrink-0 space-y-4">
           {/* Charts */}
           {[
             { label: 'Clarity Score by Question', data: clarityData, color: 'var(--accent)' },

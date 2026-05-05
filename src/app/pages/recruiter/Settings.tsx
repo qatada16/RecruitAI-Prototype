@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { cvKeywordRules } from '../../data/mockData';
 
@@ -38,7 +38,7 @@ function JobPostingTab() {
   };
 
   return (
-    <div className="max-w-2xl space-y-5">
+    <div className="space-y-5">
       {/* Job Details */}
       <div
         className="rounded-lg p-6 border"
@@ -97,7 +97,7 @@ function JobPostingTab() {
                     onClick={() => setSkills(sk => sk.filter(x => x !== s))}
                     className="text-gray-400 hover:text-red-500 cursor-pointer"
                   >
-                    Ã—
+                    ×
                   </button>
                 </span>
               ))}
@@ -106,7 +106,7 @@ function JobPostingTab() {
                 value={skillInput}
                 onChange={e => setSkillInput(e.target.value)}
                 onKeyDown={addSkill}
-                placeholder="Add skill, press Enterâ€¦"
+                placeholder="Add skill, press Enter…"
                 className="text-sm outline-none border-none flex-1 min-w-24 px-1 bg-transparent"
                 style={{ color: 'var(--text-primary)' }}
               />
@@ -205,7 +205,7 @@ function JobPostingTab() {
             type="text"
             value={newQuestion}
             onChange={e => setNewQuestion(e.target.value)}
-            placeholder="Add a new interview questionâ€¦"
+            placeholder="Add a new interview question…"
             className="flex-1 px-3 py-2 text-sm rounded border outline-none"
             style={{ borderColor: 'var(--border-input)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-header)' }}
             onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
@@ -231,7 +231,7 @@ function JobPostingTab() {
         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent-hover)'; }}
         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)'; }}
       >
-        Save &amp; Publish
+        Save & Publish
       </button>
     </div>
   );
@@ -265,7 +265,7 @@ function CVParsingTab() {
   };
 
   return (
-    <div className="max-w-3xl">
+    <div>
       <div
         className="rounded-lg border overflow-hidden"
         style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
@@ -351,7 +351,7 @@ function CVParsingTab() {
               {['Skill / Keyword', 'Department', 'Weight / Priority', 'Active'].map(h => (
                 <th
                   key={h}
-                  className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider"
                   style={{ color: 'var(--text-secondary)' }}
                 >
                   {h}
@@ -368,11 +368,11 @@ function CVParsingTab() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
               >
-                <td className="px-5 py-3.5 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                   {rule.skill}
                 </td>
-                <td className="px-5 py-3.5 text-sm" style={{ color: 'var(--text-secondary)' }}>{rule.department}</td>
-                <td className="px-5 py-3.5">
+                <td className="px-4 py-3 text-sm" style={{ color: 'var(--text-secondary)' }}>{rule.department}</td>
+                <td className="px-4 py-3">
                   <span
                     className="text-xs font-medium"
                     style={{ color: weightColor[rule.weight] }}
@@ -380,7 +380,7 @@ function CVParsingTab() {
                     {rule.weight}
                   </span>
                 </td>
-                <td className="px-5 py-3.5">
+                <td className="px-4 py-3">
                   <button
                     onClick={() => toggleActive(rule.id)}
                     className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors cursor-pointer"

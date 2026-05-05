@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Phone, Calendar, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { candidates } from '../../data/mockData';
@@ -184,7 +184,7 @@ export default function CandidateProfile() {
         onCancel={() => setShowRejectModal(false)}
       />
 
-      <div className="p-4 sm:p-6 max-w-6xl">
+      <div className="p-4 sm:p-6 max-w-full">
         {/* Back button */}
         <button
           onClick={() => navigate('/recruiter/candidates')}
@@ -198,11 +198,11 @@ export default function CandidateProfile() {
         </button>
 
         <div className="flex flex-col lg:flex-row gap-5">
-          {/* Left column â€“ 35% */}
-          <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
+          {/* Left column — 35% */}
+          <div className="w-full lg:w-[22rem] flex-shrink-0 space-y-4">
             {/* Identity card */}
             <div
-              className="rounded-lg p-6 border"
+              className="rounded-lg p-5 border"
               style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
             >
               <div className="flex flex-col items-center mb-5">
@@ -330,7 +330,7 @@ export default function CandidateProfile() {
             </div>
           </div>
 
-          {/* Right column â€“ 65% */}
+          {/* Right column — 65% */}
           <div className="flex-1 space-y-4">
             {/* Score summary */}
             <div

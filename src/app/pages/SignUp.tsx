@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { Mail, Lock, User, ChevronDown } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -130,7 +130,7 @@ export default function SignUp() {
                   type="password"
                   value={form.password}
                   onChange={e => set('password', e.target.value)}
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  placeholder="••••••••"
                   className="w-full pl-9 pr-3 py-2.5 text-sm rounded border outline-none transition-colors"
                   style={inputStyle}
                   onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
@@ -150,7 +150,7 @@ export default function SignUp() {
                   type="password"
                   value={form.confirm}
                   onChange={e => set('confirm', e.target.value)}
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  placeholder="••••••••"
                   className="w-full pl-9 pr-3 py-2.5 text-sm rounded border outline-none transition-colors"
                   style={inputStyle}
                   onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.backgroundColor = 'var(--bg-surface)'; }}
@@ -198,7 +198,7 @@ export default function SignUp() {
         </div>
 
         <p className="text-center text-xs mt-4" style={{ color: 'var(--text-secondary)', opacity: 0.6 }}>
-          <Link to="/" style={{ color: 'var(--accent)' }}>â† Back to homepage</Link>
+          <Link to="/" style={{ color: 'var(--accent)' }}>← Back to homepage</Link>
         </p>
       </div>
     </div>

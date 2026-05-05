@@ -1,4 +1,4 @@
-﻿import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft } from 'lucide-react';
 import { candidates, systemDesignResponse } from '../../data/mockData';
 
@@ -45,7 +45,7 @@ export default function SystemDesignReview() {
   const designScore = Math.round((candidate.codingScore + candidate.communicationScore) / 2);
 
   return (
-    <div className="p-4 sm:p-6 max-w-5xl">
+    <div className="p-4 sm:p-6">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -62,7 +62,7 @@ export default function SystemDesignReview() {
           System Design Review
         </h1>
         <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-          {candidate.name} Â· Design a URL Shortener Â· Submitted Feb 23, 2026
+          {candidate.name} · Design a URL Shortener · Submitted Feb 23, 2026
         </p>
       </div>
 
@@ -109,7 +109,7 @@ export default function SystemDesignReview() {
         </div>
 
         {/* AI Feedback */}
-        <div className="w-full lg:w-80 flex-shrink-0 space-y-5">
+        <div className="w-full lg:w-[22rem] flex-shrink-0 space-y-5">
           <div
             className="rounded-lg p-5 border"
             style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}

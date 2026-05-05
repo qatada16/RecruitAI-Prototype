@@ -1,4 +1,4 @@
-﻿import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft } from 'lucide-react';
 import { candidates, codeSnippet } from '../../data/mockData';
 
@@ -48,7 +48,7 @@ export default function AssessmentDeepDive() {
   const candidate = candidates.find(c => c.id === id) || candidates[0];
 
   return (
-    <div className="p-4 sm:p-6 max-w-7xl">
+    <div className="p-4 sm:p-6">
       <button
         onClick={() => navigate(`/recruiter/candidates/${candidate.id}`)}
         className="flex items-center gap-1.5 text-sm mb-5 transition-colors cursor-pointer"
@@ -65,12 +65,12 @@ export default function AssessmentDeepDive() {
           Coding Assessment Review
         </h1>
         <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-          {candidate.name} Â· Two Sum â€” Array Hashing Â· Python
+          {candidate.name} · Two Sum — Array Hashing · Python
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-0 rounded-lg overflow-hidden border" style={{ borderColor: 'var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
-        {/* Left panel â€“ Code Editor */}
+        {/* Left panel — Code Editor */}
         <div className="flex-1 min-w-0" style={{ backgroundColor: 'var(--editor-bg)' }}>
           {/* Panel header */}
           <div
@@ -85,7 +85,7 @@ export default function AssessmentDeepDive() {
                 Python 3.11
               </span>
               <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                Two Sum â€” Array Hashing
+                Two Sum — Array Hashing
               </span>
             </div>
             <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
@@ -115,9 +115,9 @@ export default function AssessmentDeepDive() {
           </div>
         </div>
 
-        {/* Right panel â€“ Evaluation */}
+        {/* Right panel — Evaluation */}
         <div
-          className="w-full lg:w-96 flex-shrink-0 border-t lg:border-t-0 lg:border-l"
+          className="w-full lg:w-[26rem] flex-shrink-0 border-t lg:border-t-0 lg:border-l"
           style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)' }}
         >
           {/* Header */}
@@ -125,7 +125,7 @@ export default function AssessmentDeepDive() {
             <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {candidate.name}
             </h3>
-            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>Two Sum â€” Array Hashing</p>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>Two Sum — Array Hashing</p>
           </div>
 
           <div className="px-6 py-5">
