@@ -21,6 +21,7 @@ import CodingTest from './pages/candidate/CodingTest';
 import SystemDesign from './pages/candidate/SystemDesign';
 import Confirmation from './pages/candidate/Confirmation';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';
+import JobListings from './pages/candidate/JobListings';
 import { CandidateProvider } from './context/CandidateContext';
 
 function CandidateProviderWrapper() {
@@ -57,6 +58,7 @@ export const router = createBrowserRouter([
     Component: CandidateProviderWrapper,
     children: [
       { index: true, Component: AssessmentLobby },
+      { path: 'jobs', Component: JobListings },
       { path: 'voice-interview', Component: VoiceInterview },
       { path: 'coding-test', Component: CodingTest },
       { path: 'system-design', Component: SystemDesign },
